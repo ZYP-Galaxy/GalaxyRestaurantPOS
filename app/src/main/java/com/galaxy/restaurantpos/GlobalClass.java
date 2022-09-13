@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.provider.ContactsContract;
@@ -20,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GlobalClass {
 
@@ -219,4 +224,36 @@ public class GlobalClass {
     //region userarea //added WHM [2020-11-11]
     public static String strgetarea_groupbyuser = " ";
     //endregion
+
+    public static void showToast(Context ctx, String message) {
+        Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
+    }
+
+    public static void showAlertDialog(Context context, String title, String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (dialog, which) -> {
+        });
+        alertDialog.show();
+    }
+
+    static ProgressDialog progressDialog;
+
+    public static void showProgressDialog(Context context, String message) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(R.string.app_name);
+        progressDialog.setMessage(message);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public static void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+
 }

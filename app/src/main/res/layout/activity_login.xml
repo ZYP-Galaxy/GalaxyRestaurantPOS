@@ -6,45 +6,55 @@
     android:layout_alignParentTop="true"
     android:background="@drawable/loginbackground"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="right">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTrial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:onClick="checkconnection_onClick"
+            android:text=""
+            android:textColor="@color/yellow_500"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SVR.Status"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/constatus"
             android:onClick="checkconnection_onClick"
-		/>
+            android:text="SVR.Status"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/constatus"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:src="@drawable/greenstatus" 
-            android:padding="3dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/butsetting"
             android:onClick="checkconnection_onClick"
-            />
+            android:padding="3dp"
+            android:src="@drawable/greenstatus" />
 
         <Button
             android:id="@+id/butsetting"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="30dp"
             android:background="@drawable/setting1"
-        	android:onClick="butsetting_OnClick"
-        	android:layout_marginLeft="30dp"
-            />
+            android:onClick="butsetting_OnClick" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/loginlayout"
@@ -80,7 +90,7 @@
                 android:background="@drawable/roundbutton2"
                 android:ems="10"
                 android:paddingLeft="5dp"
-                android:textColor="#000000"></EditText>
+                android:textColor="#000000" />
 
 
             <Button

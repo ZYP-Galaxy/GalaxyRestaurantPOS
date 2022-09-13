@@ -5,14 +5,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -67,7 +73,8 @@ import android.location.Location;
 import android.location.LocationManager;
 
 import me.myatminsoe.mdetect.MDetect;
-import me.myatminsoe.mdetect.Rabbit;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class LoginActivity extends Activity {
 
@@ -77,15 +84,16 @@ public class LoginActivity extends Activity {
     private EditText txtUserName, txtPassword, txtusercode;
     private Button button1, button2;
     private View View1;
-    private TextView txtPrint, txtsetuserline;
+    private TextView txtPrint, txtsetuserline, txtTrial;
     private CheckBox chkoffline;
     final DatabaseHelper dbhelper = new DatabaseHelper(this);
-    public static Typeface font;
+    public Typeface font;
     List<PosUser> userlist;
     private String devicename;
 
-//    public static boolean isUnicode=false;
-    public static boolean isUnicode =false;
+    private boolean isTrialEnd = false;
+    //    public static boolean isUnicode=false;
+    public static boolean isUnicode = false;
     private static final int REQUEST_LOCATION = 1;
     //public static Boolean isUnicode;
     LocationManager locationManager;
@@ -135,6 +143,8 @@ public class LoginActivity extends Activity {
         } else {
             setContentView(R.layout.activity_login);
 
+            txtTrial = findViewById(R.id.txtTrial);
+
             txtUserName = ((EditText) findViewById(R.id.txtusername));
             txtPassword = ((EditText) findViewById(R.id.txtpassword));
 
@@ -150,22 +160,8 @@ public class LoginActivity extends Activity {
                 }
             });
 
+            isUnicode = MDetect.INSTANCE.isUnicode();
             txtUserName.setFocusable(false);
-            // userlist = dbhelper.getPosUserlist();
-
-            //font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
-            //isUnicode= MDetect.INSTANCE.isUnicode();
-            //isUnicode = dbhelper.isUnicode();
-
-            isUnicode=MDetect.INSTANCE.isUnicode();
-
-
-//            if (isUnicode)
-//                font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
-//            else
-//                font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
-
-
             txtUserName.setTypeface(font);
 
             GlobalClass.ChangeLanguage(
@@ -198,11 +194,13 @@ public class LoginActivity extends Activity {
         }
         GlobalClass.Identifier = deviceUniqueIdentifier;
 
+        CheckTrialDate();
+
         /*
          * int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION ;
          * this.getWindow().getDecorView().setSystemUiVisibility(uiOptions);
          */
-       // Toast.makeText(this,MDetect.INSTANCE.isUnicode()?"မင်္ဂလာပါ": Rabbit.uni2zg("မင်္ဂလာပါ"),Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this,MDetect.INSTANCE.isUnicode()?"မင်္ဂလာပါ": Rabbit.uni2zg("မင်္ဂလာပါ"),Toast.LENGTH_SHORT).show();
     }
 
     public void btnNo_OnClick(View v) {
@@ -304,12 +302,12 @@ public class LoginActivity extends Activity {
         if (dbhelper.getRegisterFlag().equals(false)) {
             txtunregister.setVisibility(View.GONE);
             txtloaddata.setVisibility(View.GONE);
-           // txtloadimage.setVisibility(View.GONE);
+            // txtloadimage.setVisibility(View.GONE);
         } else {
             txtregister.setVisibility(View.GONE);
             txtunregister.setVisibility(View.GONE);
             txtloaddata.setVisibility(View.VISIBLE);
-           // txtloadimage.setVisibility(View.VISIBLE);
+            // txtloadimage.setVisibility(View.VISIBLE);
         }
 
         txtitemviewstyle.setVisibility(View.GONE);
@@ -691,7 +689,7 @@ public class LoginActivity extends Activity {
                 rdochinese.setText("Chinese");
                 rdochinese.setPadding(0, 10, 0, 10);
 
-               // rdogroup.addView(tv);
+                // rdogroup.addView(tv);
                 rdogroup.addView(rdodefault);
                 rdogroup.addView(rdobutmyanmar);
 //			rdogroup.addView(rdobutmyanmarUni);
@@ -886,12 +884,44 @@ public class LoginActivity extends Activity {
 
             ((ImageView) findViewById(R.id.constatus))
                     .setImageResource(R.drawable.greenstatus);
+            CheckTrialDate();
         } else {
             ((ImageView) findViewById(R.id.constatus))
                     .setImageResource(R.drawable.redstatus);
 
         }
 
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private void CheckTrialDate() {
+        if (GlobalClass.CheckConnection(this)) {
+            if (dbhelper.getAppSetting("use_trial").equals("Y")) {
+                try {
+                    txtTrial.setVisibility(View.VISIBLE);
+                    String currentDateString = dbhelper.getCurrentDateTime();     //13/09/2022 14:52
+                    Date currentDate = new SimpleDateFormat("dd/MM/yyyy").parse(currentDateString);
+                    String expDateString = dbhelper.getAppSetting("trial_expire_date");
+                    Date expDate = new SimpleDateFormat("yyyy-MM-dd").parse(expDateString);
+                    System.out.println(currentDate + "\t" + expDate);
+                    if (currentDate != null && expDate != null && currentDate.compareTo(expDate) < 0) {
+                        long diff = expDate.getTime() - currentDate.getTime();
+                        String trialDay = String.valueOf((int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+                        txtTrial.setText("Trial " + trialDay + " day left!");
+                        isTrialEnd = false;
+                    } else {
+                        txtTrial.setText("Trial Period End!");
+                        isTrialEnd = true;
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    txtTrial.setVisibility(View.GONE);
+                }
+            } else {
+                txtTrial.setVisibility(View.GONE);
+            }
+        }
     }
 
     public void Register(String DeviceName) throws NumberFormatException,
@@ -1706,6 +1736,21 @@ public class LoginActivity extends Activity {
     public static int pos;
 
     public void btnconfirm_click(View v) {
+
+        if (isTrialEnd) {
+            AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+            alertDialog.setTitle("Trial Period End!");
+            ImageView image = new ImageView(this);
+            image.setImageResource(R.drawable.contactus);
+            alertDialog.setView(image);
+            //alertDialog.setMessage(message);
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (dialog, which) -> {
+            });
+            alertDialog.show();
+
+            return;
+        }
+
         if (txtUserName.getTag() == null) {
             showAlertDialog(this, "Galaxy Restaurant",
                     "Please select user first.", false);
