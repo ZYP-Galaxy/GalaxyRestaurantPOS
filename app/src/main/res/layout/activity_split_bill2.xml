@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:id="@+id/layoutpage" >
+            
+                       <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#617621" 
+                        />                                       
+                    <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_itemname"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+                    <TextView
+                        android:id="@+id/txtqty"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_qty"
+                        android:textAppearance="?android:attr/textAppearanceMedium"                        
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/txtamount"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_amount"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />                                  
+        </LinearLayout>
+        <LinearLayout 
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:layout_below="@+id/layoutpage"
+         android:id="@+id/layoutheader">
+                      <TextView
+                    android:id="@+id/txtfill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000"/>
+      </LinearLayout>
+         <ListView
+                android:id="@+id/splitFrom"
+                android:layout_below="@+id/layoutheader"
+                 android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"   
+                android:choiceMode="singleChoice" 
+                android:listSelector="#CDCDCD"               
+                android:dividerHeight="1dp" >   
+           </ListView>                       
+    </LinearLayout>
+    
+
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent" >
+               
+              <RelativeLayout 
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+                    
+                     <TextView
+                    android:id="@+id/txtfill"
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+              		android:layout_alignParentLeft="true"
+                    android:background="#000000"/> 
+                    
+                     
+                     <RelativeLayout 
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent" 
+                          
+                         >
+                      <LinearLayout 
+                          android:layout_width="match_parent"
+                          android:layout_height="30dp"
+                          android:id="@+id/testlayout"
+                          ></LinearLayout>
+                        
+                            <Button
+                 android:id="@+id/btnMoveRight"               
+                 android:layout_width="70dp"
+                 android:layout_below="@+id/testlayout"
+                 android:layout_height="50dp" 
+                 android:textSize="33dp"
+            	 android:text=">"               
+                 android:textColor="#ffff"
+                  android:layout_centerHorizontal="true"   
+                 android:background="@drawable/icon"
+               />
+                        
+                            
+                            <Button
+                 android:id="@+id/btnMoveLeft"
+                 android:layout_below="@+id/btnMoveRight"  
+                 android:layout_marginTop="20dp" 
+                 android:layout_width="70dp"
+                 android:layout_height="50dp"
+                 android:textSize="33dp"           
+                 android:textColor="#ffff"
+                 android:layout_centerHorizontal="true"
+                 android:background="@drawable/icon"                 
+               />
+                
+               <Button
+                 android:id="@+id/btnDoubleMoveRight"
+                 android:layout_below="@+id/btnMoveLeft"  
+                 android:layout_marginTop="20dp" 
+                 android:layout_width="70dp"
+                 android:layout_height="50dp"
+             	android:textSize="33dp"
+            	 android:text=">>"               
+                 android:textColor="#ffff"
+                android:layout_centerHorizontal="true"
+                 android:background="@drawable/icon"                 
+               />   
+               
+               <Button
+                 android:id="@+id/btnDoubleMoveLeft"
+                 android:layout_below="@+id/btnDoubleMoveRight"  
+                 android:layout_marginTop="20dp" 
+                 android:layout_width="70dp"
+                 android:layout_height="50dp"
+             	android:textSize="33dp"	               
+                 android:textColor="#ffff"
+                android:layout_centerHorizontal="true"
+                 android:background="@drawable/icon"                 
+               />
+                            
+                  <Button
+                 android:id="@+id/btnSplitbill"
+                 android:layout_below="@+id/btnDoubleMoveLeft"  
+                 android:layout_marginTop="20dp" 
+                 android:layout_width="wrap_content"
+                 android:layout_height="50dp"
+                 android:text="Split Bill"              
+                 android:textColor="#ffff"
+                 android:padding="10dp"
+                android:layout_centerHorizontal="true"
+                 android:background="@drawable/icon"                 
+               />
+                    
+                              
+                         
+                     </RelativeLayout>
+                     
+                      <TextView                
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+              		android:layout_alignParentRight="true"
+                    android:background="#000000"/> 
+                  
+              </RelativeLayout>
+                   
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent" >
+        
+        
+                         <LinearLayout 
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     
+                     >
+                     
+                     <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.8"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#617621" 
+                        />
+                    
+                    
+                    <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_itemname"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/txtqty"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_qty"
+                        android:textAppearance="?android:attr/textAppearanceMedium"                        
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/txtamount"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/en_amount"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000000" />                                                                      
+                 </LinearLayout>
+       			 <LinearLayout 
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     android:layout_below="@+id/layoutpageRight"
+                     android:id="@+id/layoutheaderRight">
+                      <TextView
+                    android:id="@+id/txtfill"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#000000"/>
+                     </LinearLayout>
+                                                  
+                    <ListView
+                android:id="@+id/splitTo"
+                android:layout_below="@+id/layoutheaderRight"
+                 android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"   
+                android:choiceMode="singleChoice" 
+                android:listSelector="#CDCDCD"                
+                android:dividerHeight="1dp"
+               
+                >
+            </ListView>
+        
+        
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	<ImageView
+		android:id="@+id/icon"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:visibility="gone"
+		/>
+
+
+	<TextView
+		android:id="@+id/txttranid"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:visibility="gone" />
+
+
+
+	<TextView
+		android:id="@+id/txtheader"
+		android:layout_width="120dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:textColor="#CC0033"
+		android:textSize="15sp"
+		android:paddingLeft="10dp"
+		android:textStyle="bold"
+		android:text="aaa"/>
+
+
+
+	<TextView
+		android:id="@+id/txttime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/txtheader"
+		android:textColor="#CC0033"
+		android:padding="10dp"
+		android:textSize="12sp"
+		android:text="aaaaaaaaaa"/>
+
+
+
+	<TextView
+		android:id="@+id/txtdetail"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@+id/txtheader"
+		android:ems="8"
+		android:paddingLeft="10dp"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:textSize="15sp"
+		android:textStyle="bold"
+		android:text="aaa"/>
+
+</RelativeLayout>

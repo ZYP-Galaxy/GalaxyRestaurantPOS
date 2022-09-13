@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/delivery_entry_layout">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:background="#2E43B3"
+                >
+                <TextView
+                    android:layout_width="425dp"
+                    android:layout_height="wrap_content"
+                    android:text="Delivery Entry Detail"
+                    android:textColor="#ffffff"
+                    android:gravity="left"
+                    android:textSize="25sp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_confirm"
+                    android:textColor="#ffffff"
+
+                    android:background="@drawable/confirm"
+                    android:gravity="center"
+                    android:textSize="20sp"
+
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_close"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/close"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    />
+
+
+
+            </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:text="Township"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner_township"
+                        android:textSize="18sp"
+                        style="@style/deliveryentry_spinner"
+                        android:spinnerMode="dropdown"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_agent"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+                        android:text="Agent"
+                        android:textSize="18sp"
+
+                        />
+
+                    <Spinner
+                        android:id="@+id/spinner_agent"
+                        android:textSize="18sp"
+                        style="@style/deliveryentry_spinner"
+                        android:spinnerMode="dropdown"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:textSize="18sp"
+                        android:text="Charges"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+
+                        />
+
+                    <EditText
+                        android:id="@+id/et_deliCharges"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:background="#ffffff"
+                        android:inputType="none"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:editable="false"
+                        android:text="0.0"
+                        />
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_deliMan"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:textSize="18sp"
+                        android:text="Deli. Man"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+
+                        />
+                    <Spinner
+                        android:textSize="18sp"
+                        style="@style/deliveryentry_spinner"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/spinner_deliveryman"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:textSize="18sp"
+                        android:text="Esti.Time"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+
+                        />
+
+                    <EditText
+                        android:id="@+id/et_estimateTime"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:background="#ffffff"
+                        android:inputType="none"
+                        android:gravity="center"
+                        android:imeOptions="actionDone"
+                        android:editable="false"
+
+                        />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:textSize="18sp"
+                        android:text="(hrs)"
+                        android:textColor="#0E1697"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+                        android:layout_marginLeft="10dp"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_payment"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:textSize="18sp"
+                        android:text="Payment"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+
+                        />
+                    <Spinner
+                        android:textSize="18sp"
+                        style="@style/deliveryentry_spinner"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/spinner_payment"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="Order Time"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+
+                    />
+
+                <EditText
+                    android:id="@+id/et_ordertime"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:background="#ffffff"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:imeOptions="actionDone"
+                    />
+
+                <Button
+                    android:id="@+id/but_timepicker"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="..."
+                    android:visibility="invisible" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:textSize="18sp"
+                    android:text="Cust.Detail"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+
+                    />
+
+                <EditText
+                    android:id="@+id/et_custdetail"
+                    android:layout_width="420dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:textSize="18sp"
+                    android:paddingLeft="3dp"
+                    android:background="#ffffff"
+                    android:inputType="textMultiLine"
+                    android:imeOptions="actionDone"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+
+                >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:textSize="18sp"
+                    android:text="Remark"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+
+                    />
+
+                <EditText
+                    android:id="@+id/et_reamrk"
+                    android:layout_width="420dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:background="#ffffff"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="3dp"
+                    android:imeOptions="actionDone"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#2E43B3"
+                android:layout_gravity="bottom"
+                />
+
+
+        </LinearLayout>
+
+    </TableLayout>
+</ScrollView>

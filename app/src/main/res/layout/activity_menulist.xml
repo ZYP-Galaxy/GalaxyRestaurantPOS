@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <ScrollView            
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" 
+        
+            android:scrollbarSize="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:background="#000000"
+        >
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#FFFFFF" />
+
+        
+       <TextView
+            android:id="@+id/txtregister"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"   
+            android:padding="5dp"        
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:text="Register"
+            />
+
+
+       <TextView
+           android:id="@+id/txtregline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+
+
+       <TextView
+           android:id="@+id/txtunregister"
+           android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:text="Unregister"          
+           android:padding="5dp"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+
+
+       <TextView
+           android:id="@+id/txtunregline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+
+
+       <TextView
+           android:id="@+id/txtseturl"
+           android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="Set URL"
+           android:textSize="18sp" />
+
+
+       <TextView
+           android:id="@+id/txtseturlline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+
+          <TextView
+           android:id="@+id/txtsetUser"
+           android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="Set User"
+           android:textSize="18sp" />
+
+
+       <TextView
+           android:id="@+id/txtsetuserline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+       
+
+       <TextView
+           android:id="@+id/txtloaddata"
+           android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="Load Data"
+           android:textSize="18sp" />
+              
+       <TextView
+           android:id="@+id/txtloaddataline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+<!--		 <TextView-->
+<!--		     android:id="@+id/txtloadimage"-->
+<!--		     android:layout_width="match_parent"-->
+<!--		     android:layout_height="50dp"-->
+<!--		     android:gravity="left|center"-->
+<!--		     android:padding="5dp"-->
+<!--		     android:text="Load Image"-->
+<!--		     android:textColor="#FFFFFF"-->
+<!--		     android:textSize="18sp"-->
+<!--             android:visibility="gone"/>-->
+       
+		 <TextView
+           android:id="@+id/txtloaddataline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+       <TextView
+           android:id="@+id/txtChangeLanguage"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="ChangeLanguage"
+           android:textSize="18sp" />
+
+
+       <TextView
+           android:id="@+id/txtchangelanguageline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+       
+         <TextView
+           android:id="@+id/txtItemDescription"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Item Description"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+       
+       <TextView
+           android:id="@+id/txtItemDescriptionline1"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+       <TextView
+           android:id="@+id/txtItemViewStyle"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Item View Style"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+       
+       <TextView
+           android:id="@+id/txtchangelanguageline1"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+       <TextView
+           android:id="@+id/txtFinishedItems"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Finished Items"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+       
+       <TextView
+           android:id="@+id/txtItemViewStyleline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+       <TextView
+           android:id="@+id/txtResetData"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Reset Data"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+
+       <TextView
+           android:id="@+id/txtResetDataline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+       <TextView
+           android:id="@+id/txtTableRowCount"
+           android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="Table Row Style"
+           android:textSize="18sp"
+            />
+      
+
+ <TextView
+           android:id="@+id/txttablerowcountline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+        <!-- Item Row Style Testing -->
+		<TextView
+		    android:id="@+id/txtItemRowCount"
+		    android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"  
+           android:padding="5dp"
+            android:textColor="#FFFFFF"
+           android:text="Item Row Style"
+           android:textSize="18sp" />
+
+
+		
+		<TextView
+           android:id="@+id/txtitemrowcountline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/txtMenuItemViewCount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:textColor="#FFFFFF"
+            android:text="MenuItemColStyle"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtMenuItemViewCountLine"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#FFFFFF"
+            android:visibility="gone"/>
+       
+       <TextView
+           android:id="@+id/txttestprint"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Test Print"
+           android:textColor="#FFFFFF"
+           android:textSize="18sp" />
+
+       <TextView
+           android:id="@+id/txttestprintline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+
+
+       <CheckBox
+           android:id="@+id/chkOffline"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:gravity="left|center"
+           android:padding="5dp"
+           android:text="Offline"
+           android:textColor="#FFFFFF" />
+       
+       <TextView
+           android:id="@+id/txtoffline"
+           android:layout_width="fill_parent"
+           android:layout_height="1dp"
+           android:background="#FFFFFF" />
+       
+    </LinearLayout>
+    
+    </ScrollView>
+
+</LinearLayout>

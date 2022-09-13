@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom|center">
+	
+    <LinearLayout
+	    android:id="@+id/room_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="3dp"
+	    android:layout_marginRight="3dp"
+	    android:layout_marginTop="3dp"
+	    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtRooms"
+        android:layout_width="950dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_button"
+        android:text=" Rooms"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" />
+
+    <ScrollView
+        android:id="@+id/roomlistscroll"
+        android:layout_width="950dp"
+        android:layout_height="562dp"
+        android:layout_marginTop="5dp" >
+
+        <LinearLayout
+            android:id="@+id/room_grid_layout"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0.02"
+            android:orientation="vertical" >
+            
+            <Button
+                android:id="@+id/btnNotRoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/rounded_button"
+                android:text="None"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+  </ScrollView>
+  </LinearLayout>
+
+</LinearLayout>

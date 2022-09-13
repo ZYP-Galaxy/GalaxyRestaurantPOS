@@ -1,0 +1,150 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        
+        android:id="@+id/customersetuplayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="2dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtItemRemark"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#008ad2"
+            android:text="Customer Setup"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:paddingLeft="10dp"
+            android:gravity="left|center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/lblCustomerName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Customer Name"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/txtCustomerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:ems="10"
+                android:layout_weight="1">
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
+
+
+     <!-- Added by Arkar Moe on [02/09/2016] -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/lblCustomerCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Customer Code "
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/txtCustomerCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:ems="10"
+                android:layout_weight="1" >
+               
+            </EditText>
+        </LinearLayout>
+        <!-- TourCode -->
+    
+        
+
+
+        <!-- [02/09/2016] -->
+        
+        <!-- Customer Credit -->
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/lblCustomerCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="left|center"
+                android:paddingLeft="15dp"
+                android:text="Allow Credit "
+                android:textSize="20dp" />
+
+            <CheckBox
+                android:id="@+id/chkCustomerCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp">
+            <!-- CompanyName -->
+            <TextView
+                android:id="@+id/lblCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Company Name"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/txtCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:ems="10" >
+
+            </EditText>
+            <!-- CompanyName -->
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_button"
+            android:text="Add"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+</RelativeLayout>

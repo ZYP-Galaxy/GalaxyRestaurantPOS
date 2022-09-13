@@ -1,0 +1,481 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/itemeditlayout"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/txtitemname"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="#3949AB"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:text="Item Name"
+            android:singleLine="true"
+            android:maxLines="1"/>
+
+
+        <TextView
+            android:id="@+id/txtsr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:text="Qty"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/butminus"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/minus" />
+                    <!-- commented by Arkar Moe on [04/04/2017]
+                    <TextView
+                        android:id="@+id/txtqty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:minWidth="50dp"
+                        android:textSize="30sp"
+                        />
+                     -->
+
+                    <EditText
+                        android:id="@+id/txtqty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:minWidth="50dp"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/butplus"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/plus" />
+
+                    <Button
+                        android:id="@+id/butremove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/popupbuttons"
+                        android:text="Remove"
+                        android:textColor="#FFFFFF" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8dp">
+
+                    <Button
+                        android:id="@+id/btnfirst"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/unitbutton"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btnsecond"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/unitbutton"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btnthird"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/unitbutton"
+                        android:textColor="#FFFFFF"
+                        android:visibility="gone" />
+
+
+                    <Button
+                        android:id="@+id/btnselectedunit"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/unitbutton"
+                        android:visibility="gone"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_taway"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+
+                    <CheckBox
+                        android:id="@+id/chktakeaway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="t.away" />
+
+                    <CheckBox
+                        android:id="@+id/chkFinish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finished" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="#b3c8b9" />
+
+                <LinearLayout
+                    android:id="@+id/layoutfire"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp">
+
+                    <TextView
+                        android:id="@+id/lblFiresr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:text="Fire no.   "
+                        android:textSize="25sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                    <EditText
+                        android:id="@+id/txtfiresr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:minWidth="100dp"
+                        android:textSize="30sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/remarklay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/TextView02"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="Remark :"
+                        android:textSize="25sp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="6"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtremark"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="5.2"
+                            android:ems="10"
+                            android:inputType="textMultiLine">
+
+                            <requestFocus />
+                        </EditText>
+
+                        <TextView
+                            android:id="@+id/butremarkclear"
+                            android:layout_width="55dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.3"
+                            android:gravity="center"
+                            android:layout_margin="2dp"
+                            android:text="Clear"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#1A237E" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="#b3c8b9" />
+
+                <!--  Commented by Arkar Moe on [22/02/2017]
+                        <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginLeft="15dp"
+                             >
+
+                             <TextView
+                                 android:id="@+id/txtmodifier1"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="Modifier Items ("
+                                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                             <TextView
+                                 android:id="@+id/butmodifier"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="Add Item"
+                                 android:textAppearance="?android:attr/textAppearanceMedium"
+                                 android:textColor="#0024ff" />
+
+                             <TextView
+                                 android:id="@+id/txtmodifier2"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text=")"
+                                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                         </LinearLayout> -->
+
+
+                <LinearLayout
+                    android:id="@+id/selectedmodifierItemlistmainmanin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <ScrollView
+                        android:id="@+id/selecteditemscroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:id="@+id/okcancelList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/butCancel"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/popupbuttons"
+                                    android:text="Cancel"
+                                    android:textColor="#FFFFFF" />
+
+                                <Button
+                                    android:id="@+id/butOK"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/popupbuttons"
+                                    android:text="OK"
+                                    android:textColor="#FFFFFF" />
+
+                                <Button
+                                    android:id="@+id/butaddRemark"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/popupbuttons"
+                                    android:text="AddRemark"
+                                    android:textColor="#FFFFFF" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/layout_modify"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+
+                                <Button
+                                    android:id="@+id/butaddmodifier"
+                                    android:layout_width="203dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/popupbuttons"
+                                    android:text="AddModifierItem"
+                                    android:textColor="#FFFFFF" />
+
+                                <Button
+                                    android:id="@+id/butChangeSetItem"
+                                    android:layout_width="110dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:background="@drawable/popupbuttons"
+                                    android:text="Set.Item"
+                                    android:textColor="#FFFFFF" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="5dp"
+                        android:background="#b3c8b9" />
+
+                    <LinearLayout
+                        android:id="@+id/selectedmodifierItemlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="#b3c8b9" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/modifierlayout"
+        android:layout_width="550dp"
+        android:layout_height="400dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtmodifiername"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#3949AB"
+            android:gravity="center"
+            android:text="Modifier Items"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="3dp"
+            android:background="#767c78" />
+
+        <ScrollView
+            android:id="@+id/modifiedlistscroll"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/modifieditemlistmain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/modifieditemlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"></LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/butcancelmodifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/popupbuttons"
+                android:text="Cancel"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/butOkmodifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/popupbuttons"
+                android:text="OK"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

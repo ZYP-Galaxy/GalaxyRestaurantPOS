@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center" >
+
+    <RelativeLayout
+        android:id="@+id/selecteditemlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/menuselected_background" >
+
+        <LinearLayout
+            android:id="@+id/namelayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#033FFF"
+            android:layout_margin="3dp"
+
+            >
+
+            <TextView
+                android:id="@+id/txtmenuname1"
+                android:layout_width="20dp"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#617621"
+                android:paddingLeft="2dp"
+                android:layout_gravity="left"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/txtmenuname"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="3.5"
+                android:text="@string/en_itemname"
+                android:textAppearance="@style/itemmenuselectedlist_text"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                 />
+
+            <TextView
+                android:id="@+id/txtmenuqty"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="0.5"
+                android:text="@string/en_qty"
+                android:textAppearance="@style/itemmenuselectedlist_text"
+                android:layout_gravity="center"
+                android:gravity="center"
+                 />
+
+            <TextView
+                android:id="@+id/txtmenuamount"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="2"
+                android:gravity="center|right"
+                android:text="@string/en_amount"
+                android:textAppearance="@style/itemmenuselectedlist_text"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/namelayout"
+            android:visibility="invisible"
+            android:background="#F00C0C">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#2A43BE" />
+        </LinearLayout>
+        <!--
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+
+        -->
+
+        <LinearLayout
+            android:id="@+id/selecteditem"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:layout_below="@id/linelayout" >
+
+            <ListView
+                android:id="@+id/menuordereditemlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:choiceMode="singleChoice"
+                android:dividerHeight="1dp"
+                android:listSelector="#CDCDCD"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp">
+            </ListView>
+        </LinearLayout>
+
+        <!--
+        <TextView
+            android:id="@+id/txtlinebelow"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+
+        -->
+
+        <LinearLayout
+            android:id="@+id/linelayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selecteditem" >
+
+            <TextView
+                android:id="@+id/txtlinebelow"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/totallayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linelayout1" >
+
+            <TextView
+                android:id="@+id/txtmenuname2"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#617621" />
+
+            <TextView
+                android:id="@+id/menu_txttotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="3.6"
+                android:text="@string/en_total"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/menu_txttotalqty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:layout_weight="0.5"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/menu_txttotalamount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:paddingRight="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/totallayout"
+            android:layout_marginTop="2dp" 
+           android:layout_centerInParent="true"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+
+                >
+
+                <!-- android:layout_centerHorizontal="true" -->
+
+                <Button
+                    android:id="@+id/menu_btnok"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="150dp"
+                    android:background="@drawable/roundpopupbutton"
+                    android:text="Check Out"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/menu_btncancel"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/menu_btnok"
+                    android:background="@drawable/roundpopupbutton"
+                    android:text="Cancel"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

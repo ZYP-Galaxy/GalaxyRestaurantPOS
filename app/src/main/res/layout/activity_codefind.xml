@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#008ad2">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/search_icon"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="3dp"
+            android:layout_weight="2"
+            android:background="#008ad2"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:text="Code Find"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:background="#008ad2"
+            android:text="X"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:weightSum="4"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
+            android:layout_weight="0.6"
+            android:gravity="center"
+            android:background="#008ad200"
+            android:paddingLeft="0dp"
+            android:text="Code  :"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/txtcodeSearch"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#000000"
+            android:imeOptions="actionDone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:background="#008ad200"
+            android:paddingLeft="0dp"
+            android:text="Description  :"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/txtdesSearch"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.5"
+            android:background="@drawable/edittext"
+            android:padding="5dp"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="#000000"
+            android:imeOptions="actionDone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#A7DDFF"
+        android:paddingLeft="8dp"
+        >
+        <TextView
+            android:id="@+id/txtScode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.8"
+            android:text="Code"
+            android:textSize="19dp"></TextView>
+
+        <TextView
+            android:id="@+id/txtSdes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="3"
+            android:text="Description"
+            android:textSize="19dp"></TextView>
+
+        <TextView
+            android:id="@+id/txtSprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Price"
+            android:textSize="19dp"></TextView>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/codefindlist"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        >
+
+    </ListView>
+
+</LinearLayout>

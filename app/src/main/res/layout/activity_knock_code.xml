@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/loginbackground"
+    android:gravity="center" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="checkconnection_onClick"
+                android:text="SVR.Status"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/constatus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:onClick="checkconnection_onClick"
+                android:padding="3dp"
+                android:src="@drawable/greenstatus" />
+
+            <Button
+                android:id="@+id/butsetting"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/setting"
+                android:onClick="butsetting_OnClick" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="@string/en_username"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                tools:context=".LoginActivity" />
+
+            <EditText
+                android:id="@+id/txtusername"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:ems="10"
+                android:textColor="#000000" >
+            </EditText>
+
+            <Button
+                android:id="@+id/btnselectuser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/selectuser"
+                android:onClick="btnselectuser_click" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginLeft="120dp"
+        android:background="@drawable/loginbuttons"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_toRightOf="@+id/button1"
+        android:background="@drawable/loginbuttons"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button01"
+        android:layout_alignBottom="@+id/Button01"
+        android:layout_toRightOf="@+id/Button01"
+        android:background="@drawable/loginbuttons"
+        android:text="3" />
+
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button02"
+        android:layout_alignBottom="@+id/Button02"
+        android:layout_toRightOf="@+id/Button02"
+        android:background="@drawable/loginbuttons"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/Button04"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:background="@drawable/loginbuttons"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/Button05"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button04"
+        android:layout_alignBottom="@+id/Button04"
+        android:layout_toLeftOf="@+id/Button02"
+        android:background="@drawable/loginbuttons"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/Button06"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/Button02"
+        android:layout_toLeftOf="@+id/Button03"
+        android:background="@drawable/loginbuttons"
+        android:text="6" />
+
+    <Button
+        android:id="@+id/Button07"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button06"
+        android:layout_alignBottom="@+id/Button06"
+        android:layout_toRightOf="@+id/Button06"
+        android:background="@drawable/loginbuttons"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/Button08"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/Button04"
+        android:layout_below="@+id/Button04"
+        android:background="@drawable/loginbuttons"
+        android:text="7" />
+
+    <Button
+        android:id="@+id/Button09"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/Button04"
+        android:layout_toRightOf="@+id/Button04"
+        android:background="@drawable/loginbuttons"
+        android:text="8" />
+
+    <Button
+        android:id="@+id/Button10"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/Button06"
+        android:layout_toLeftOf="@+id/Button07"
+        android:background="@drawable/loginbuttons"
+        android:text="9" />
+
+    <Button
+        android:id="@+id/Button11"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button10"
+        android:layout_alignBottom="@+id/Button10"
+        android:layout_toRightOf="@+id/Button10"
+        android:background="@drawable/loginbuttons"
+        android:text="Exit" />
+
+</RelativeLayout>

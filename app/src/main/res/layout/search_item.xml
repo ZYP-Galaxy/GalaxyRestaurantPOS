@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:weightSum="5">
+
+    <TextView
+        android:id="@+id/txtScode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="0.9"
+        android:text="0001"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/txtSdes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="3"
+        android:text="Chicken Curry"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/txtSprice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="100,000"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+
+
+</LinearLayout>

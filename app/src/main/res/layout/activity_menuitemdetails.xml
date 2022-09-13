@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtSetMenuItemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center"
+                android:text="Category :  "
+                android:textColor="#006EB8"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+            <!--
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFF" />
+
+
+                 <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp">
+                 <ListView
+                        android:id="@+id/searchresultmenulist"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                        android:choiceMode="singleChoice" />
+                -->
+
+            <LinearLayout
+                android:id="@+id/searchedmenulist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical" />
+            <!-- </ScrollView> -->
+
+            <RatingBar
+                android:id="@+id/itemrating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center">
+
+                <!--       android:layout_centerHorizontal="true" -->
+                <Button
+                    android:id="@+id/detailbutOkmodifier"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/roundpopupbutton"
+                    android:drawableLeft="@drawable/add_to_cart"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Add to cart"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/detailbutcancelmodifier"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/detailbutOkmodifier"
+                    android:background="@drawable/roundpopupbutton"
+                    android:text="Cancel"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

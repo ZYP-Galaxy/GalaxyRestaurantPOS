@@ -1,0 +1,251 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+
+    <style name="DarkAppTheme" parent="android:Theme.Black" />
+
+    <style name="TitleTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#617621</item>
+    </style>
+
+    <style name="dialogtheme" parent="android:Theme.Dialog" />
+
+    <style name="MainButtonTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">bottom|center</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">#617621</item>
+    </style>
+
+    <style name="categorybutton_text" parent="android:Widget.Button">
+        <item name="android:layout_width">127dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+
+    <style name="itembuttonmenu_text">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#1A8B20</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="itempricebuttonmenu_text">
+       <!----> <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#380696</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="itemdetailbutton_menu_text">
+    <item name="android:layout_width">350dp</item>
+    <item name="android:layout_height">70dp</item>
+    <item name="android:textColor">#1A8B20</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_margin">3dp</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:shadowColor">#B87CD1</item>
+    <item name="android:shadowDx">0</item>
+    <item name="android:shadowDy">0</item>
+    <item name="android:shadowRadius">0</item>
+    </style>
+
+
+    <style name="itemdetailbutton_menu_pricetext">
+        <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#380696</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="itemdetailbutton_menu_remarktext">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#378066</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#B87CD1</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+
+    <style name="itembutton_text">
+        <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="itempricebutton_text">
+        <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="itemdetailbutton_text">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#B87CD1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="areabutton_text">
+        <item name="android:layout_width">127dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="tablebutton_text">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="OverlayDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/darker_gray</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+	
+    
+    <style name="spinner_style">
+     	  <item name="android:layout_width">135dp</item>
+          <item name="android:layout_height">54dp</item>
+          <item name="android:background">@drawable/spinnerborder</item>
+          <item name="android:layout_margin">8dp</item>
+          <item name="android:paddingLeft">5dp</item>
+          <item name="android:paddingRight">5dp</item>
+          <item name="android:paddingTop">5dp</item>
+          <item name="android:paddingBottom">5dp</item>
+          <item name="android:popupBackground">#DFFFFFFF</item>
+    </style>
+
+    <style name="deliverytype_spinner_style">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/spinner_deliverytype_border</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0.5dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:popupBackground">#DFF2F2F7</item>
+        <item name="android:textColor">#DFFFFFFF</item>
+    </style>
+
+    <style name="butdine_in">
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
+
+
+    <style name="deliveryentry_spinner">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/delivery_entry_spinnerborder</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0.5dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:popupBackground">#DFE4F7F3</item>
+    </style>
+
+    <style name="itemmenuselectedlist_text">
+        <item name="android:layout_width">164dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+
+    <style name="checkBoxStyle" parent="AppTheme">
+        <item name="android:color">#33FF33</item>
+        <item name="android:textColorSecondary">#ffffff</item>
+    </style>
+    
+</resources>

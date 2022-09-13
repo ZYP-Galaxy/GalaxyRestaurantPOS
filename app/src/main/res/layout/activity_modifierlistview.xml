@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+	
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/txtModifierItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modifier List"
+        android:textSize="18sp"
+        android:textColor="#0000FF"
+        android:layout_marginTop="10dp"        
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:background="#000000"
+        />
+    <!-- #767c78 -->
+      <ScrollView    
+        android:id="@+id/modifierScrollView"
+        android:layout_width="match_parent"
+         android:layout_marginBottom="5dp"
+        android:layout_height="400dp">
+
+        <LinearLayout
+            android:id="@+id/modifieritemlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:layout_marginLeft="5dp"
+            >
+
+        </LinearLayout>
+    </ScrollView> 
+<!--  
+         <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:background="#000000"
+        /> 
+      --> 
+      <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#FFF">
+                 <Button
+                     android:id="@+id/menubutcancelmodifier"
+                     android:layout_width="120dp"
+                     android:layout_height="50dp"
+                     android:layout_marginLeft="150dp"
+                     android:background="@drawable/roundpopupbutton"
+                     android:text="Cancel"
+                     android:textColor="#FFFFFF" />
+   <!--       android:layout_centerHorizontal="true" --> 
+                 <Button
+                     android:id="@+id/menubutOkmodifier"
+                     android:layout_width="120dp"
+                     android:layout_toRightOf="@id/menubutcancelmodifier"
+                     android:layout_height="50dp"
+                     android:layout_marginLeft="10dp"
+                     android:background="@drawable/roundpopupbutton"
+                     android:text="OK"
+                     android:textColor="#FFFFFF" />    
+      </RelativeLayout>
+      
+</LinearLayout>
+</LinearLayout>

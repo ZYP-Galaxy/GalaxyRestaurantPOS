@@ -1,0 +1,49 @@
+<resources>
+
+    <string name="app_name">GalaxyRestaurantPOS</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Restaurant POS</string>
+    <string name="en_dinein">Dine In</string>
+    <string name="en_parcel">Parcel</string>
+    <string name="en_orderlist">Order List</string>
+    <string name="en_customers">Customers</string>
+    <string name="en_items">Items</string>
+    <string name="en_clearall">CLEAR ALL</string>
+    <string name="en_customer">CUSTOMER</string>
+    <string name="en_submit">PRINT</string>
+    <string name="en_bill">BILL</string>
+    <string name="en_detail">DETAIL</string>
+    <string name="en_qty">QTY</string>
+    <string name="en_room">ROOM</string>
+    <string name="en_fire">FIRE</string>
+    <string name="en_others">OTHERS</string>
+    <string name="en_itemselect">SELECT</string>
+    <string name="en_extra">EXTRA</string>
+    <string name="en_totalbill">BILL</string>
+    <string name="setting">SETTING</string>
+    <string name="en_itemname">DESCRIPTION</string>
+    <string name="en_amount">AMOUNT</string>
+    <string name="en_total">TOTAL</string>
+    <string name="en_tax">TAX</string>
+    <string name="en_netamount">NET AMOUNT</string>
+    <string name="en_toggleitemview">TOGGLE VIEW</string>
+    <string name="en_username">Username</string>
+    <string name="en_password">Password</string>
+    <string name="title_activity_order_taking">OrderTaking</string>
+    <string name="title_activity_table_screen">Tables</string>
+    <string name="title_activity_quantity_box">Quantity Box</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="tab_dinein">DINE IN</string>
+    <string name="tab_parcel">PARCEL</string>
+    <string name="en_confirm">VOUCHER</string>
+    <string name="title_activity_test_print">Print Test Page</string>
+    <string name="title_activity_send_note">SendNote</string>
+    <string name="title_activity_knock_code">KnockCodeActivity</string>
+    <string name="title_activity_note_printer">NotePrinter</string>
+    <string name="title_activity_add_remark">AddRemark</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_menu_fragment">MenuFragment</string>
+    <string name="title_activity_new_menu">NewMenuActivity</string>
+
+</resources>

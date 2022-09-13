@@ -1,0 +1,272 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000">
+
+    <LinearLayout
+        android:id="@+id/mainscreen_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/loginbackground"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/otherlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/txtusername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="User Name"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="80dp"
+                android:onClick="checkconnection_onClick"
+                android:text="SVR.Status"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/constatus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:onClick="checkconnection_onClick"
+                android:padding="3dp"
+                android:src="@drawable/greenstatus" />
+
+            <Button
+                android:id="@+id/butsetting"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/setting1"
+                android:onClick="butsetting_OnClick" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/datalayout"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/uplayout"
+                android:layout_width="800dp"
+                android:layout_height="150dp"
+                android:gravity="center">
+
+
+                <!-- Add your target layout here -->
+
+                <LinearLayout
+                    android:id="@+id/butdinein"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#00C853"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/img_dinein"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/dinein1" />
+
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#2E7D32"
+                        android:gravity="center"
+                        android:text="@string/en_dinein"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/butparcel"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/parcel"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/en_parcel"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/butorders"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#AA00FF"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="65dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pda_write1" />
+
+                    <TextView
+                        android:id="@+id/textOrder"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#7B1FA2"
+                        android:gravity="center"
+                        android:text="@string/en_orderlist"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <!-- Menu Add Start -->
+
+                <LinearLayout
+                    android:id="@+id/butmenu"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#E53935"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/menu_main1" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#B71C1C"
+                        android:gravity="center"
+                        android:text="Menu"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <!-- Menu End -->
+
+                <LinearLayout
+                    android:id="@+id/butswitchuser"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#3949AB"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/switch1" />
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#1A237E"
+                        android:gravity="center"
+                        android:text="Switch User"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/butexit"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:background="#00838F"
+                    android:gravity="center_horizontal|bottom"
+                    android:onClick="butclick_click"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/exit1" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#006064"
+                        android:gravity="center"
+                        android:text="Sign Out"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtcopyright"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="bottom|center"
+                android:text="© CopyRight 2013-2020 Galaxy Software. All Rights Reserved."
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="V 2.0.9"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

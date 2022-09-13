@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">  
+    <item android:id="@+id/register" android:title="Register"/>
+    <item android:id="@+id/unregister" android:title="Unregister"/> 
+    <item android:id="@+id/setdataurl" android:title="Set URL"/>
+    <item android:id="@+id/setloaddata" android:title="Load Data"/>
+    <item android:id="@+id/changelanguage" android:title="Change Language"/>
+</menu>
