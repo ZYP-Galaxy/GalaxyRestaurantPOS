@@ -116,8 +116,8 @@ public class MainScreen extends Activity {
         GlobalClass.use_foodtruck = dbhelper.use_foodtruck(dbhelper.getwaiterid());
         GlobalClass.tmpOffline = dbhelper.getOfflineFlag();
 
-        if(GlobalClass.use_foodtruck){
-            LinearLayout switchuserLayout = (LinearLayout)findViewById(R.id.butswitchuser);
+        if (GlobalClass.use_foodtruck) {
+            LinearLayout switchuserLayout = (LinearLayout) findViewById(R.id.butswitchuser);
             switchuserLayout.setVisibility(View.GONE);
 
             ImageView imgDineIn = (ImageView) findViewById(R.id.img_dinein);
@@ -145,7 +145,7 @@ public class MainScreen extends Activity {
         PosUser posuser = dbhelper.getPosUserByUserID(Integer.parseInt(dbhelper.getwaiterid()));
         String posusername = dbhelper.getwaitername() + " - " + posuser.getName();
 
-        txtusername.setText( posusername);
+        txtusername.setText(posusername);
         txtusername.setTag(dbhelper.getwaiterid());
 
         if (dbhelper.getOfflineFlag().equals(false))//added by WaiWL on 10/06/2015
@@ -1590,6 +1590,10 @@ public class MainScreen extends Activity {
                         }
                     });
                     ////
+
+                    //added by EKK on 14-12-2019
+                    if (dbhelper.getuse_Promotion() == true)
+                        dbhelper.LoadPromotionItem(dataurl);
 
                     // added by PPH on 27/07/2016
                     dbhelper.SetLoadedDate(dataurl);

@@ -163,7 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String devicetable = "DeviceName";
     static final String coldeviceowner = "Owner";
 
-    // CustomerCountSetUp
+    // CustomerCountSetUpv
     static final String CustomerCountSetUp = "CustomerCountSetUp";
     static final String colPrivate = "optPrivate";
     static final String colBusiness = "optBusiness";
@@ -585,7 +585,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + coldescription2 + " TEXT, "
                 + coldescription3 + " TEXT, "
                 + colParcel_Price + " TEXT,"
-                + colsortid + " TEXT,"
+                + colsortid + " INTEGER,"
                 + colOrgCurr + " TEXT," // added by WaiWL on 11/08/2015
                 + colItemrating + " TEXT," //added by MPPA on 27/01/2021
                 + colCategory2 + " TEXT,"//added by KLM 07062022
@@ -2515,14 +2515,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * +"."+colusrcode+" = "+ItemPhototable+"."+ colusrcode+ " where "
          * +colclassid +" = " + classid + " order by "+ colusrcode;
          */
-        String selectQuery = "SELECT " + ItemTable + ".*" + " FROM "
-                + ItemTable + " where " + colclassid + " = " + classid
-                + " and " + coltmpInactive + "='false' "
-                + str
-                + " order by "
-                + colsortid;
-//				+ colusrcode;// added by WaiWL on 06/08/2015 --add check for
-        // Inactive 0
+        String selectQuery = "";
+        if (getAppSetting("ItemOrderStyle").equals("0")) {
+            selectQuery = "SELECT " + ItemTable + ".*" + " FROM "
+                    + ItemTable + " where " + colclassid + " = " + classid
+                    + " and " + coltmpInactive + "='false' "
+                    + str
+                    + " order by " + colsortid + "," + colusrcode;
+        } else {
+            selectQuery = "SELECT " + ItemTable + ".*" + " FROM "
+                    + ItemTable + " where " + colclassid + " = " + classid
+                    + " and " + coltmpInactive + "='false' "
+                    + str
+                    + " order by " + coldescription + " COLLATE NOCASE ASC";
+        }
+
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         try {
@@ -3170,7 +3177,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String selectQuery = "SELECT " + colcode + "," + colunit_qty + " ," + colmax_price + " ," + colmaincode
                     + ", " + colunit_type
                     + " FROM " + Item_ListTable + " where " + colmaincode
-                    + " = '" + itemid + "' order by " + colcode;
+                    + " = '" + itemid + "'";
+            //MOdified by KNO (15-11-2022)
+            //+ "' order by " + colcode;
 
             Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -3772,14 +3781,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          */
 
         if (tmpmenuid == 0) {
-            selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
-                    + Specialmenu_code_Table + " inner join " + ItemTable
-                    + " on " + Specialmenu_code_Table + "." + colSUsr_code
-                    + " = " + ItemTable + "." + colusrcode + " where "
-                    + ItemTable + "." + coltmpInactive + "='false' "
+            if (getAppSetting("ItemOrderStyle").equals("0")) {
+                selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                        + Specialmenu_code_Table + " inner join " + ItemTable
+                        + " on " + Specialmenu_code_Table + "." + colSUsr_code
+                        + " = " + ItemTable + "." + colusrcode + " where "
+                        + ItemTable + "." + coltmpInactive + "='false' "
+                        + " order by " + colsortid + "," + colusrcode;// added by WaiWL on 06/08/2015 --add checking inactive 0
+            } else {
+                selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                        + Specialmenu_code_Table + " inner join " + ItemTable
+                        + " on " + Specialmenu_code_Table + "." + colSUsr_code
+                        + " = " + ItemTable + "." + colusrcode + " where "
+                        + ItemTable + "." + coltmpInactive + "='false' "
+                        + " order by " + coldescription + " COLLATE NOCASE ASC";
+            }
 
-//					+ " order by " + colusrcode;
-                    + " order by " + colsortid;// added by WaiWL on 06/08/2015 --add checking inactive 0
         } else {
             selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
                     + Specialmenu_code_Table + " inner join " + ItemTable
@@ -3837,15 +3854,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         List<ItemsObj> list = new ArrayList<ItemsObj>();
 
-        selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
-                + PromotionTable + " inner join " + ItemTable
-                + " on " + PromotionTable + "." + colSUsr_code
-                + " = " + ItemTable + "." + colusrcode + " where "
-                + ItemTable + "." + coltmpInactive + "='false' "
-                + " AND " + ItemTable + "." + colusrcode + " NOT IN (SELECT " + colsoldoutusr_code
-                + " FROM " + SoldOutTable + ")"
-                + " order by " + colsortid;
-
+        if (getAppSetting("ItemOrderStyle").equals("0")) {
+            selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                    + PromotionTable + " inner join " + ItemTable
+                    + " on " + PromotionTable + "." + colSUsr_code
+                    + " = " + ItemTable + "." + colusrcode + " where "
+                    + ItemTable + "." + coltmpInactive + "='false' "
+                    + " AND " + ItemTable + "." + colusrcode + " NOT IN (SELECT " + colsoldoutusr_code
+                    + " FROM " + SoldOutTable + ")"
+                    + " order by " + colsortid + "," + colusrcode;
+        } else {
+            selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                    + PromotionTable + " inner join " + ItemTable
+                    + " on " + PromotionTable + "." + colSUsr_code
+                    + " = " + ItemTable + "." + colusrcode + " where "
+                    + ItemTable + "." + coltmpInactive + "='false' "
+                    + " AND " + ItemTable + "." + colusrcode + " NOT IN (SELECT " + colsoldoutusr_code
+                    + " FROM " + SoldOutTable + ")"
+                    + " order by " + coldescription + " COLLATE NOCASE ASC";
+        }
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -3903,16 +3930,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //				str +											// checking inactive
 //															// 0
 //				" order by " + colusrcode;
-
-        String selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
-                + ItemTable + " where " + colcategoryid + " = " + categoryid
-                + " and " + coltmpInactive + "='false' " + // added by WaiWL on
-                // 06/08/2015 --add
-                str +                                            // checking inactive
-                // 0
-//				" order by " + colusrcode;
-                " order by " + colsortid;
-
+        String selectQuery = "";
+        if (getAppSetting("ItemOrderStyle").equals("0")) {
+            selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                    + ItemTable + " where " + colcategoryid + " = " + categoryid
+                    + " and " + coltmpInactive + "='false' " + str +
+                    " order by " + colsortid + "," + colusrcode;
+        } else {
+            selectQuery = "SELECT  " + ItemTable + ".*" + " FROM "
+                    + ItemTable + " where " + colcategoryid + " = " + categoryid
+                    + " and " + coltmpInactive + "='false' " + str +
+                    " order by " + coldescription + " COLLATE NOCASE ASC";
+        }
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -6628,9 +6657,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (itemjsonarray.length() > 0) {
-            ClearTable(PromotionTable);
-        }
+
+        //Modified by KNO (15-11-2022) for inactive Promotion
+        //if (itemjsonarray.length() > 0) {
+        ClearTable(PromotionTable);
+        //}
 
         for (int i = 0; i < itemjsonarray.length(); i++) {
             JSONObject c;

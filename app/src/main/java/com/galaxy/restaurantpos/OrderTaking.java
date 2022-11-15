@@ -142,6 +142,7 @@ public class OrderTaking extends Activity {
     ViewPager viewPager;
     PagerAdapter adapter;
     boolean clickChecked = true;
+    boolean reprint = false;
     SplitBill billadapter;
     SplitBill billadapterRight;
     ListView listviewFrom;
@@ -220,7 +221,8 @@ public class OrderTaking extends Activity {
     Boolean isNewVoucher = false;
 
     static String mainCode = "";
-
+    String orgqty = "";
+    String qtytmp = "";
     //endregion Variables
 
     @Override
@@ -488,7 +490,7 @@ public class OrderTaking extends Activity {
 
         FrameLayout btndetail = (FrameLayout) findViewById(R.id.butdetail);
         if (dbhelper.Allow_btnDetail(UserID) == true) {
-            btndetail.setVisibility(View.GONE);
+            btndetail.setVisibility(View.VISIBLE);
         } else {
             btndetail.setVisibility(View.GONE);
         }
@@ -5060,7 +5062,10 @@ public class OrderTaking extends Activity {
                     if (modifierobjlist.size() > 0) {
                         BindModifieritemtolist(itemlayout, modifierobjlist, true);
                     }
-                    CalculateTotal();
+
+                    if (dbhelper.getAppSetting("QtyChangeKitchenPrint").equals("Y")) {
+                        CalculateTotal();
+                    }
                     dialog.dismiss();
                 }
             });
@@ -8397,7 +8402,8 @@ public class OrderTaking extends Activity {
                 linearlayout = (LinearLayout) itemlistlayout.getChildAt(i);
                 LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
                 TextView txtsrrow = (TextView) mainrow.getChildAt(0);
-                if (!txtsrrow.getTag().toString().contains("P")) {
+                //Modified by KNO for printed change qty
+                if (!txtsrrow.getTag().toString().contains("P") || reprint == true) {
                     String Remark = "";
                     if (linearlayout.getChildCount() > 1) // get remark text
                     {
@@ -8574,7 +8580,7 @@ public class OrderTaking extends Activity {
                         .getChildAt(0);// Get main item row
                 TextView txtsrrow = (TextView) mainrow.getChildAt(0);
 
-                if (!txtsrrow.getTag().toString().contains("P")) {
+                if (!txtsrrow.getTag().toString().contains("P") || reprint == true) {
                     for (int j = 0; j < valueitemlinearlayout.getChildCount(); j++) {
                         LinearLayout layout = (LinearLayout) valueitemlinearlayout
                                 .getChildAt(j);
@@ -10319,7 +10325,7 @@ public class OrderTaking extends Activity {
             butchangesetitem.setVisibility(View.GONE);
             modifieritemstatus = "modifer";
         } else {
-            mainCode = itemname.getTag().toString();//Added by KLM for chaning set menu item 13062022
+            mainCode = itemname.getTag().toString();//Added by KLM for changing set menu item 13062022
             modifieritemstatus = "setmenuitem";
         }
 
@@ -10398,7 +10404,10 @@ public class OrderTaking extends Activity {
         if (dbhelper.Allow_itemcancel(dbhelper.getwaiterid()) == false && txtsr.getTag().toString().equals("P")) {
             txtqtyitem.setInputType(InputType.TYPE_NULL);
         }
-
+        //Added by KNO for printed change qty
+        if (txtsr.getTag().toString().equals("P")) {
+            orgqty = Double.toString(Double.parseDouble(txtqty.getText().toString()));
+        }
         // final String Itemname =
         // dbhelper.getItemNamebyitemid(txtitem.getTag().toString());
 
@@ -10556,212 +10565,224 @@ public class OrderTaking extends Activity {
         ((Button) dialog.findViewById(R.id.butOK))
                 .setOnClickListener(new OnClickListener() {
                     public void onClick(View v) {
-                        clickChecked = true;
-                        TextView txtsr = (TextView) itemparent.getChildAt(0);
-                        TextView txtitem = (TextView) itemparent.getChildAt(1);
-                        TextView qty = (TextView) itemparent.getChildAt(2);
-                        TextView txtamount = (TextView) itemparent.getChildAt(3);
-                        TextView txtunit = (TextView) itemparent.getChildAt(4);
-                        TextView txttakeaway = (TextView) itemparent.getChildAt(5);
-                        TextView txtrealsr = (TextView) itemparent.getChildAt(6);
-                        TextView txtisFinishedItem = (TextView) itemparent.getChildAt(7);// added by WaiWL on 23/07/2015
-                        TextView txtfire = (TextView) itemparent.getChildAt(8);
+                        //Added by KNO for printed change qty
+                        if (txtsr.getTag().toString().equals("P") && !orgqty.equals(qtytmp)) {
+                            if (dbhelper.getAppSetting("QtyChangeKitchenPrint").equals("N")) {
+                                showAlertDialog(ctx, "Warning", "You need to print Modify Qty ", false);
+                                dialog.dismiss();
+                            } else {
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                                builder.setMessage("Qty Changed! Print to Kitchen/Bar? ");
+                                builder.setTitle("Warning!");
+                                builder.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface builder, int which) {
+                                                reprint = true;
+                                                clickChecked = true;
+                                                TextView txtsr = (TextView) itemparent.getChildAt(0);
+                                                TextView txtitem = (TextView) itemparent.getChildAt(1);
+                                                TextView qty = (TextView) itemparent.getChildAt(2);
+                                                TextView txtamount = (TextView) itemparent.getChildAt(3);
+                                                TextView txtunit = (TextView) itemparent.getChildAt(4);
+                                                TextView txttakeaway = (TextView) itemparent.getChildAt(5);
+                                                TextView txtrealsr = (TextView) itemparent.getChildAt(6);
+                                                TextView txtisFinishedItem = (TextView) itemparent.getChildAt(7);// added by WaiWL on 23/07/2015
+                                                TextView txtfire = (TextView) itemparent.getChildAt(8);
+                                                TextView txtfiredialog = (TextView) dialog.findViewById(R.id.txtfiresr);
+                                                CheckBox chktakeaway = (CheckBox) dialog.findViewById(R.id.chktakeaway);
+                                                CheckBox chkisFinishedItem = (CheckBox) dialog.findViewById(R.id.chkFinish);// added by WaiWL// on 23/07/2015
+                                                TextView txtqty = (TextView) dialog.findViewById(R.id.txtqty);
 
-                        TextView txtfiredialog = (TextView) dialog.findViewById(R.id.txtfiresr);
-                        CheckBox chktakeaway = (CheckBox) dialog.findViewById(R.id.chktakeaway);
-                        CheckBox chkisFinishedItem = (CheckBox) dialog.findViewById(R.id.chkFinish);// added by WaiWL// on 23/07/2015
-                        TextView txtqty = (TextView) dialog.findViewById(R.id.txtqty);
+                                                if (txtqty.getText().toString().equals("0") || txtqty.getText().toString().equals(""))//added WHM [2020-02-05] MDY1-20023
+                                                {
+                                                    txtqty.setText("1");
+                                                }
+                                                //Qty Decimal Place
+                                                String trimString = ".";
+                                                String qtydecimal = dbhelper.getqty_decimal_places();
+                                                for (int i = 0; i < Integer.valueOf(qtydecimal); i++) {
+                                                    trimString = trimString + "0";
+                                                }
 
-                        if (txtqty.getText().toString().equals("0") || txtqty.getText().toString().equals(""))//added WHM [2020-02-05] MDY1-20023
-                        {
-                            txtqty.setText("1");
-                        }
-                        //Qty Decimal Place
-                        String trimString = ".";
-                        String qtydecimal = dbhelper.getqty_decimal_places();
-                        for (int i = 0; i < Integer.valueOf(qtydecimal); i++) {
-                            trimString = trimString + "0";
-                        }
-
-                        //Price Decimal Place
-                        String pricetrim = ".";
-                        String pricedecimal = dbhelper.getprice_decimal_places();
-                        for (int i = 0; i < Integer.valueOf(pricedecimal); i++) {
-                            pricetrim = pricetrim + "0";
-                        }
-                        //
+                                                //Price Decimal Place
+                                                String pricetrim = ".";
+                                                String pricedecimal = dbhelper.getprice_decimal_places();
+                                                for (int i = 0; i < Integer.valueOf(pricedecimal); i++) {
+                                                    pricetrim = pricetrim + "0";
+                                                }
+                                                //
 //						qty.setTag(dbhelper.qtyroundto(txtqty.getText().toString()).replace(".00", "").trim());
-                        qty.setTag(dbhelper.qtyroundto(txtqty.getText().toString()).replace(trimString, "").trim());
-                        txtfire.setText(txtfiredialog.getText().toString());//added by aungmyotun
+                                                qty.setTag(dbhelper.qtyroundto(txtqty.getText().toString()).replace(trimString, "").trim());
+                                                txtfire.setText(txtfiredialog.getText().toString());//added by aungmyotun
 
-                        if (use_unit && !txtunit.getTag().toString().equals(" ")) {
-                            List<UnitCodeObj> unitcodelist = dbhelper.getunitcodebyunit(
-                                    txtitem.getTag().toString(), txtunit.getTag().toString());
-                            qty.setText(qty.getTag().toString() + " " + unitcodelist.get(0).getshortname());
+                                                if (use_unit && !txtunit.getTag().toString().equals(" ")) {
+                                                    List<UnitCodeObj> unitcodelist = dbhelper.getunitcodebyunit(
+                                                            txtitem.getTag().toString(), txtunit.getTag().toString());
+                                                    qty.setText(qty.getTag().toString() + " " + unitcodelist.get(0).getshortname());
 
-                            Double amount = Double.parseDouble(qty.getTag().toString()) *
-                                    Double.parseDouble(unitcodelist.get(0).getsaleprice().equals("null") ?
-                                            "0" : unitcodelist.get(0).getsaleprice()
-                                    );
-                            txtamount.setText(getCurrencyFormat(Double.toString(amount))); //comment for price_decimal place
-                            txtamount.setTag(Double.toString(amount));                                      //added by ZYP for price with modifier
-                            //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+                                                    Double amount = Double.parseDouble(qty.getTag().toString()) *
+                                                            Double.parseDouble(unitcodelist.get(0).getsaleprice().equals("null") ?
+                                                                    "0" : unitcodelist.get(0).getsaleprice()
+                                                            );
+                                                    txtamount.setText(getCurrencyFormat(Double.toString(amount))); //comment for price_decimal place
+                                                    txtamount.setTag(Double.toString(amount));                                      //added by ZYP for price with modifier
+                                                    //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
 
-                        } else {
-                            qty.setText(qty.getTag().toString() + "");
+                                                } else {
+                                                    qty.setText(qty.getTag().toString() + "");
 
-                            String defcurrency = dbhelper.getDefCurrency(); //added by ZYP 24-08-2020
-                            org_curr = dbhelper.getsaleCurrbyitemid(txtitem.getTag().toString());
-                            //modified by ZYP [17/11/2020] offline exg rate
-                            String defexgrate, orgExgRate;
+                                                    String defcurrency = dbhelper.getDefCurrency(); //added by ZYP 24-08-2020
+                                                    org_curr = dbhelper.getsaleCurrbyitemid(txtitem.getTag().toString());
+                                                    //modified by ZYP [17/11/2020] offline exg rate
+                                                    String defexgrate, orgExgRate;
 
-                            if (GlobalClass.tmpOffline || GlobalClass.use_foodtruck) {
-                                defexgrate = dbhelper.getExgRateByCurrency(defcurrency);
-                                orgExgRate = dbhelper.getExgRateByCurrency(org_curr);
-                            } else {
-                                defexgrate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), defcurrency);
-                                orgExgRate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), org_curr);
-                            }
+                                                    if (GlobalClass.tmpOffline || GlobalClass.use_foodtruck) {
+                                                        defexgrate = dbhelper.getExgRateByCurrency(defcurrency);
+                                                        orgExgRate = dbhelper.getExgRateByCurrency(org_curr);
+                                                    } else {
+                                                        defexgrate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), defcurrency);
+                                                        orgExgRate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), org_curr);
+                                                    }
 
-                            double price = (Double.parseDouble(dbhelper.getItempricebyitemid(txtitem.getTag().toString())) * Double.parseDouble(orgExgRate) / Double.parseDouble(defexgrate));
+                                                    double price = (Double.parseDouble(dbhelper.getItempricebyitemid(txtitem.getTag().toString())) * Double.parseDouble(orgExgRate) / Double.parseDouble(defexgrate));
 
-                            Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * price;
-                            //Double amount = Integer.parseInt(qty.getTag().toString())* Double.parseDouble(txtamount.getText().toString());
-                            //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
-                            txtamount.setText(getCurrencyFormat(Double.toString(amount)));//added by ZYP currencyformat
-                            txtamount.setTag(Double.toString(amount));            //added by ZYP for price with modifier
+                                                    Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * price;
+                                                    //Double amount = Integer.parseInt(qty.getTag().toString())* Double.parseDouble(txtamount.getText().toString());
+                                                    //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+                                                    txtamount.setText(getCurrencyFormat(Double.toString(amount)));//added by ZYP currencyformat
+                                                    txtamount.setTag(Double.toString(amount));            //added by ZYP for price with modifier
 
-                            //comment for price_decimal_place
-                        }
+                                                    //comment for price_decimal_place
+                                                }
 
-                        List<SelectedItemModifierObj> selectedmodifierobjlist = new ArrayList<SelectedItemModifierObj>();
-                        // LinearLayout selectedlinearlayout =
-                        // (LinearLayout)dialog.findViewById(R.id.selectedmodifierItemlist);
-                        for (int i = 0; i < selectedmodifieditemlist.getChildCount(); i++) {
-                            SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
+                                                List<SelectedItemModifierObj> selectedmodifierobjlist = new ArrayList<SelectedItemModifierObj>();
+                                                // LinearLayout selectedlinearlayout =
+                                                // (LinearLayout)dialog.findViewById(R.id.selectedmodifierItemlist);
+                                                for (int i = 0; i < selectedmodifieditemlist.getChildCount(); i++) {
+                                                    SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
 
-                            LinearLayout layout = (LinearLayout) selectedmodifieditemlist.getChildAt(i);
-                            TextView txtmodifiername = (TextView) layout.getChildAt(0);
-                            TextView txtmodifierqty = (TextView) layout.getChildAt(2);
-                            selectedmodifierobj.setitemsr(txtsr.getText().toString());
-                            selectedmodifierobj.setitemid(txtmodifiername.getTag().toString());
-                            selectedmodifierobj.setname(txtmodifiername.getText().toString());
-                            selectedmodifierobj.setqty(txtmodifierqty.getText().toString());
-                            selectedmodifierobj.set_maincode(txtitem.getTag().toString());
+                                                    LinearLayout layout = (LinearLayout) selectedmodifieditemlist.getChildAt(i);
+                                                    TextView txtmodifiername = (TextView) layout.getChildAt(0);
+                                                    TextView txtmodifierqty = (TextView) layout.getChildAt(2);
+                                                    selectedmodifierobj.setitemsr(txtsr.getText().toString());
+                                                    selectedmodifierobj.setitemid(txtmodifiername.getTag().toString());
+                                                    selectedmodifierobj.setname(txtmodifiername.getText().toString());
+                                                    selectedmodifierobj.setqty(txtmodifierqty.getText().toString());
+                                                    selectedmodifierobj.set_maincode(txtitem.getTag().toString());
 
-                            TextView txtModifierStatus = (TextView) layout.getChildAt(5);
-                            String price = "";
-                            String max_price = "";
-                            if (txtModifierStatus.getText().equals("setmenuitem")) {
-                                ItemsObj itemobj = dbhelper.getItemsbyitemid(layout.getChildAt(0).getTag().toString());
-                                price = itemobj.getsale_price();
-                                selectedmodifierobj.setstatus("setmenuitem");
-                                //added by MPPA for setmenu item
-                                if (dbhelper.GetSetMenuOrgQty() == true) {
-                                    txtmodifierqty.setText(txtqty.getText().toString());
-                                    selectedmodifierobj.setqty(txtqty.getText().toString());
-                                }
+                                                    TextView txtModifierStatus = (TextView) layout.getChildAt(5);
+                                                    String price = "";
+                                                    String max_price = "";
+                                                    if (txtModifierStatus.getText().equals("setmenuitem")) {
+                                                        ItemsObj itemobj = dbhelper.getItemsbyitemid(layout.getChildAt(0).getTag().toString());
+                                                        price = itemobj.getsale_price();
+                                                        selectedmodifierobj.setstatus("setmenuitem");
+                                                        //added by MPPA for setmenu item
+                                                        if (dbhelper.GetSetMenuOrgQty() == true) {
+                                                            txtmodifierqty.setText(txtqty.getText().toString());
+                                                            selectedmodifierobj.setqty(txtqty.getText().toString());
+                                                        }
 
-                                if (txtsr.getTag().toString().equals("P")) {
+                                                        if (txtsr.getTag().toString().equals("P")) {
 
-                                }
-                                max_price = dbhelper.getSetMenuMaxPricebyitemid(layout.getChildAt(0).getTag().toString(), txtitem.getTag().toString());
-                            } else {
-                                price = dbhelper.getModifierpricebyitemid(txtmodifiername.getTag().toString());
-                                selectedmodifierobj.setstatus("modifier");
-                                max_price = "0";
-                            }
-
-
-                            Double modifieramount = ((Double.parseDouble(txtmodifierqty.getText().toString())) *
-                                    Double.parseDouble(price == "" ? "0" : price));
-                            selectedmodifierobj.setamount(Double.toString(modifieramount));
-                            selectedmodifierobj.set_max_price(max_price);
-                            selectedmodifierobjlist.add(selectedmodifierobj);
+                                                        }
+                                                        max_price = dbhelper.getSetMenuMaxPricebyitemid(layout.getChildAt(0).getTag().toString(), txtitem.getTag().toString());
+                                                    } else {
+                                                        price = dbhelper.getModifierpricebyitemid(txtmodifiername.getTag().toString());
+                                                        selectedmodifierobj.setstatus("modifier");
+                                                        max_price = "0";
+                                                    }
 
 
-                        }
+                                                    Double modifieramount = ((Double.parseDouble(txtmodifierqty.getText().toString())) *
+                                                            Double.parseDouble(price == "" ? "0" : price));
+                                                    selectedmodifierobj.setamount(Double.toString(modifieramount));
+                                                    selectedmodifierobj.set_max_price(max_price);
+                                                    selectedmodifierobjlist.add(selectedmodifierobj);
 
-                        // EditText txtremark =
-                        // (EditText)dialog.findViewById(R.id.txtremark);
-                        if (!txtremark.getText().toString().equals("")) {
-                            SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
-                            selectedmodifierobj.setstatus("remark");
-                            selectedmodifierobj.setname(txtremark.getText().toString());
-                            selectedmodifierobjlist.add(selectedmodifierobj);
-                        }
 
-                        //if(!txtsr.getTag().toString().equals("P")){
+                                                }
 
-                        BindModifieritemtolist(itemparent, selectedmodifierobjlist, true);
-                        //}
+                                                // EditText txtremark =
+                                                // (EditText)dialog.findViewById(R.id.txtremark);
+                                                if (!txtremark.getText().toString().equals("")) {
+                                                    SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
+                                                    selectedmodifierobj.setstatus("remark");
+                                                    selectedmodifierobj.setname(txtremark.getText().toString());
+                                                    selectedmodifierobjlist.add(selectedmodifierobj);
+                                                }
 
-                        if (chktakeaway.isChecked()) {
-                            txttakeaway.setTag(true);
-                            itemparent.setBackgroundColor(Color.parseColor("#a10099"));
-                            //itemparent.setBackgroundColor(Color.parseColor("#dddbdb"));
-                            if (dbhelper.getchangeparcelprice() == true && (current_unit == 0 || current_unit == 1))  //modified WHM [2020-02-05] MDY1-20023
-                            {
-                                String code = itemname.getTag().toString();
-                                String amt = dbhelper.getpriceforParcel(code);
-                                if (!(Double.parseDouble(amt) > 0)) {
-                                    amt = dbhelper.getItempricebyitemid(code);
-                                }
-                                Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * Double.parseDouble(amt);
-                                txtamount.setText(getCurrencyFormat(Double.toString(amount)));
-                                //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+                                                //if(!txtsr.getTag().toString().equals("P")){
 
-                            } else //added WHM [2020-02-05] MDY1-20023
-                            {
-                                current_unit = 0;
-                            }
+                                                BindModifieritemtolist(itemparent, selectedmodifierobjlist, true);
+                                                //}
 
-                        } else {
-                            txttakeaway.setTag(false);
-                            // itemparent.setBackgroundColor(Color.TRANSPARENT);
-                        }
+                                                if (chktakeaway.isChecked()) {
+                                                    txttakeaway.setTag(true);
+                                                    itemparent.setBackgroundColor(Color.parseColor("#a10099"));
+                                                    //itemparent.setBackgroundColor(Color.parseColor("#dddbdb"));
+                                                    if (dbhelper.getchangeparcelprice() == true && (current_unit == 0 || current_unit == 1))  //modified WHM [2020-02-05] MDY1-20023
+                                                    {
+                                                        String code = itemname.getTag().toString();
+                                                        String amt = dbhelper.getpriceforParcel(code);
+                                                        if (!(Double.parseDouble(amt) > 0)) {
+                                                            amt = dbhelper.getItempricebyitemid(code);
+                                                        }
+                                                        Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * Double.parseDouble(amt);
+                                                        txtamount.setText(getCurrencyFormat(Double.toString(amount)));
+                                                        //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
 
-                        // added by WaiWL on 23/07/2015
-                        if (chkisFinishedItem.isChecked()) {
-                            txtisFinishedItem.setTag(true);
-                            itemparent.setBackgroundColor(Color
-                                    .parseColor("#dddbdb"));
-                            dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
-                                    txtsr.getText().toString().replace(".", "").trim(),
-                                    txtisFinishedItem.getTag().equals(true) ? "1" : "0");
-                        } else {
-                            txtisFinishedItem.setTag(false);
-                            if (!GlobalClass.use_foodtruck) {
-                                dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
-                                        txtsr.getText().toString().replace(".", "").trim(),
-                                        txtisFinishedItem.getTag().equals(true) ? "1" : "0");
-                            }
+                                                    } else //added WHM [2020-02-05] MDY1-20023
+                                                    {
+                                                        current_unit = 0;
+                                                    }
 
-                        }
-                        ////////////
+                                                } else {
+                                                    txttakeaway.setTag(false);
+                                                    // itemparent.setBackgroundColor(Color.TRANSPARENT);
+                                                }
+
+                                                // added by WaiWL on 23/07/2015
+                                                if (chkisFinishedItem.isChecked()) {
+                                                    txtisFinishedItem.setTag(true);
+                                                    itemparent.setBackgroundColor(Color
+                                                            .parseColor("#dddbdb"));
+                                                    dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
+                                                            txtsr.getText().toString().replace(".", "").trim(),
+                                                            txtisFinishedItem.getTag().equals(true) ? "1" : "0");
+                                                } else {
+                                                    txtisFinishedItem.setTag(false);
+                                                    if (!GlobalClass.use_foodtruck) {
+                                                        dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
+                                                                txtsr.getText().toString().replace(".", "").trim(),
+                                                                txtisFinishedItem.getTag().equals(true) ? "1" : "0");
+                                                    }
+
+                                                }
+                                                ////////////
 
 //                        if (chktakeaway.isChecked()) {
 //                            txttakeaway.setTag(true);
 //                            itemparent.setBackgroundColor(Color.parseColor("#a10099"));
 //                        }
 
-                        if (txtsr.getTag().toString().equals("P") || txtsr.getTag().toString().equals("Q")) {
+                                                if (txtsr.getTag().toString().equals("P") || txtsr.getTag().toString().equals("Q")) {
 
-                            String oldqty = dbhelper.getSaleItemQtyBySaleIDandSR(saleid,
-                                    txtrealsr.getText().toString()).get(0).getqty();
+                                                    String oldqty = dbhelper.getSaleItemQtyBySaleIDandSR(saleid,
+                                                            txtrealsr.getText().toString()).get(0).getqty();
 
-                            LinearLayout mainparentlayout = ((LinearLayout) (txtsr.getParent().getParent()));
+                                                    LinearLayout mainparentlayout = ((LinearLayout) (txtsr.getParent().getParent()));
 
-                            if (Double.parseDouble(oldqty) != Double.parseDouble(txtqty.getText().toString())) {
-                                txtsr.setTag("Q");
+                                                    if (Double.parseDouble(oldqty) != Double.parseDouble(txtqty.getText().toString())) {
+                                                        txtsr.setTag("Q");
 
-                                if (mainparentlayout.getChildCount() > 1) {
-                                    for (int i = 1; i < mainparentlayout.getChildCount(); i++) {
+                                                        if (mainparentlayout.getChildCount() > 1) {
+                                                            for (int i = 1; i < mainparentlayout.getChildCount(); i++) {
 
-                                        ((LinearLayout) mainparentlayout.getChildAt(i)).getChildAt(0).setTag("Q");
-                                    }
-                                }
-                            } else {
+                                                                ((LinearLayout) mainparentlayout.getChildAt(i)).getChildAt(0).setTag("Q");
+                                                            }
+                                                        }
+                                                    } else {
 //                                txtsr.setTag("P");
 //                                if (mainparentlayout.getChildCount() > 1) {
 //                                    for (int i = 1; i < mainparentlayout.getChildCount(); i++) {
@@ -10769,16 +10790,251 @@ public class OrderTaking extends Activity {
 //                                        ((LinearLayout) mainparentlayout.getChildAt(i)).getChildAt(0).setTag("Q");
 //                                    }
 //                                }
+                                                    }
+                                                }
+
+                                                if (GlobalClass.use_foodtruck) {
+                                                    Submit_Voucher(0);
+                                                }
+
+                                                itemparent.setBackgroundColor(Color.TRANSPARENT);
+                                                dialog.dismiss();
+                                                CalculateTotal();
+                                                salesmen_dialog();
+                                            }
+                                        });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                                builder.create().show();
                             }
-                        }
+                        } else {
+                            clickChecked = true;
+                            TextView txtsr = (TextView) itemparent.getChildAt(0);
+                            TextView txtitem = (TextView) itemparent.getChildAt(1);
+                            TextView qty = (TextView) itemparent.getChildAt(2);
+                            TextView txtamount = (TextView) itemparent.getChildAt(3);
+                            TextView txtunit = (TextView) itemparent.getChildAt(4);
+                            TextView txttakeaway = (TextView) itemparent.getChildAt(5);
+                            TextView txtrealsr = (TextView) itemparent.getChildAt(6);
+                            TextView txtisFinishedItem = (TextView) itemparent.getChildAt(7);// added by WaiWL on 23/07/2015
+                            TextView txtfire = (TextView) itemparent.getChildAt(8);
+                            TextView txtfiredialog = (TextView) dialog.findViewById(R.id.txtfiresr);
+                            CheckBox chktakeaway = (CheckBox) dialog.findViewById(R.id.chktakeaway);
+                            CheckBox chkisFinishedItem = (CheckBox) dialog.findViewById(R.id.chkFinish);// added by WaiWL// on 23/07/2015
+                            TextView txtqty = (TextView) dialog.findViewById(R.id.txtqty);
 
-                        if (GlobalClass.use_foodtruck) {
-                            Submit_Voucher(0);
-                        }
 
-                        itemparent.setBackgroundColor(Color.TRANSPARENT);
-                        dialog.dismiss();
-                        CalculateTotal();
+                            if (txtqty.getText().toString().equals("0") || txtqty.getText().toString().equals(""))//added WHM [2020-02-05] MDY1-20023
+                            {
+                                txtqty.setText("1");
+                            }
+                            //Qty Decimal Place
+                            String trimString = ".";
+                            String qtydecimal = dbhelper.getqty_decimal_places();
+                            for (int i = 0; i < Integer.valueOf(qtydecimal); i++) {
+                                trimString = trimString + "0";
+                            }
+
+                            //Price Decimal Place
+                            String pricetrim = ".";
+                            String pricedecimal = dbhelper.getprice_decimal_places();
+                            for (int i = 0; i < Integer.valueOf(pricedecimal); i++) {
+                                pricetrim = pricetrim + "0";
+                            }
+                            //
+//						qty.setTag(dbhelper.qtyroundto(txtqty.getText().toString()).replace(".00", "").trim());
+                            qty.setTag(dbhelper.qtyroundto(txtqty.getText().toString()).replace(trimString, "").trim());
+                            txtfire.setText(txtfiredialog.getText().toString());//added by aungmyotun
+
+                            if (use_unit && !txtunit.getTag().toString().equals(" ")) {
+                                List<UnitCodeObj> unitcodelist = dbhelper.getunitcodebyunit(
+                                        txtitem.getTag().toString(), txtunit.getTag().toString());
+                                qty.setText(qty.getTag().toString() + " " + unitcodelist.get(0).getshortname());
+
+                                Double amount = Double.parseDouble(qty.getTag().toString()) *
+                                        Double.parseDouble(unitcodelist.get(0).getsaleprice().equals("null") ?
+                                                "0" : unitcodelist.get(0).getsaleprice()
+                                        );
+                                txtamount.setText(getCurrencyFormat(Double.toString(amount))); //comment for price_decimal place
+                                txtamount.setTag(Double.toString(amount));                                      //added by ZYP for price with modifier
+                                //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+
+                            } else {
+                                qty.setText(qty.getTag().toString() + "");
+
+                                String defcurrency = dbhelper.getDefCurrency(); //added by ZYP 24-08-2020
+                                org_curr = dbhelper.getsaleCurrbyitemid(txtitem.getTag().toString());
+                                //modified by ZYP [17/11/2020] offline exg rate
+                                String defexgrate, orgExgRate;
+
+                                if (GlobalClass.tmpOffline || GlobalClass.use_foodtruck) {
+                                    defexgrate = dbhelper.getExgRateByCurrency(defcurrency);
+                                    orgExgRate = dbhelper.getExgRateByCurrency(org_curr);
+                                } else {
+                                    defexgrate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), defcurrency);
+                                    orgExgRate = dbhelper.LoadExgRate(dbhelper.getServiceURL(), org_curr);
+                                }
+
+                                double price = (Double.parseDouble(dbhelper.getItempricebyitemid(txtitem.getTag().toString())) * Double.parseDouble(orgExgRate) / Double.parseDouble(defexgrate));
+
+                                Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * price;
+                                //Double amount = Integer.parseInt(qty.getTag().toString())* Double.parseDouble(txtamount.getText().toString());
+                                //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+                                txtamount.setText(getCurrencyFormat(Double.toString(amount)));//added by ZYP currencyformat
+                                txtamount.setTag(Double.toString(amount));            //added by ZYP for price with modifier
+
+                                //comment for price_decimal_place
+                            }
+
+                            List<SelectedItemModifierObj> selectedmodifierobjlist = new ArrayList<SelectedItemModifierObj>();
+                            // LinearLayout selectedlinearlayout =
+                            // (LinearLayout)dialog.findViewById(R.id.selectedmodifierItemlist);
+                            for (int i = 0; i < selectedmodifieditemlist.getChildCount(); i++) {
+                                SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
+
+                                LinearLayout layout = (LinearLayout) selectedmodifieditemlist.getChildAt(i);
+                                TextView txtmodifiername = (TextView) layout.getChildAt(0);
+                                TextView txtmodifierqty = (TextView) layout.getChildAt(2);
+                                selectedmodifierobj.setitemsr(txtsr.getText().toString());
+                                selectedmodifierobj.setitemid(txtmodifiername.getTag().toString());
+                                selectedmodifierobj.setname(txtmodifiername.getText().toString());
+                                selectedmodifierobj.setqty(txtmodifierqty.getText().toString());
+                                selectedmodifierobj.set_maincode(txtitem.getTag().toString());
+
+                                TextView txtModifierStatus = (TextView) layout.getChildAt(5);
+                                String price = "";
+                                String max_price = "";
+                                if (txtModifierStatus.getText().equals("setmenuitem")) {
+                                    ItemsObj itemobj = dbhelper.getItemsbyitemid(layout.getChildAt(0).getTag().toString());
+                                    price = itemobj.getsale_price();
+                                    selectedmodifierobj.setstatus("setmenuitem");
+                                    //added by MPPA for setmenu item
+                                    if (dbhelper.GetSetMenuOrgQty() == true) {
+                                        txtmodifierqty.setText(txtqty.getText().toString());
+                                        selectedmodifierobj.setqty(txtqty.getText().toString());
+                                    }
+
+                                    if (txtsr.getTag().toString().equals("P")) {
+
+                                    }
+                                    max_price = dbhelper.getSetMenuMaxPricebyitemid(layout.getChildAt(0).getTag().toString(), txtitem.getTag().toString());
+                                } else {
+                                    price = dbhelper.getModifierpricebyitemid(txtmodifiername.getTag().toString());
+                                    selectedmodifierobj.setstatus("modifier");
+                                    max_price = "0";
+                                }
+
+
+                                Double modifieramount = ((Double.parseDouble(txtmodifierqty.getText().toString())) *
+                                        Double.parseDouble(price == "" ? "0" : price));
+                                selectedmodifierobj.setamount(Double.toString(modifieramount));
+                                selectedmodifierobj.set_max_price(max_price);
+                                selectedmodifierobjlist.add(selectedmodifierobj);
+
+
+                            }
+
+                            // EditText txtremark =
+                            // (EditText)dialog.findViewById(R.id.txtremark);
+                            if (!txtremark.getText().toString().equals("")) {
+                                SelectedItemModifierObj selectedmodifierobj = new SelectedItemModifierObj();
+                                selectedmodifierobj.setstatus("remark");
+                                selectedmodifierobj.setname(txtremark.getText().toString());
+                                selectedmodifierobjlist.add(selectedmodifierobj);
+                            }
+
+                            //if(!txtsr.getTag().toString().equals("P")){
+
+                            BindModifieritemtolist(itemparent, selectedmodifierobjlist, true);
+                            //}
+
+                            if (chktakeaway.isChecked()) {
+                                txttakeaway.setTag(true);
+                                itemparent.setBackgroundColor(Color.parseColor("#a10099"));
+                                //itemparent.setBackgroundColor(Color.parseColor("#dddbdb"));
+                                if (dbhelper.getchangeparcelprice() == true && (current_unit == 0 || current_unit == 1))  //modified WHM [2020-02-05] MDY1-20023
+                                {
+                                    String code = itemname.getTag().toString();
+                                    String amt = dbhelper.getpriceforParcel(code);
+                                    if (!(Double.parseDouble(amt) > 0)) {
+                                        amt = dbhelper.getItempricebyitemid(code);
+                                    }
+                                    Double amount = Double.parseDouble(dbhelper.qtyroundto(qty.getTag().toString())) * Double.parseDouble(amt);
+                                    txtamount.setText(getCurrencyFormat(Double.toString(amount)));
+                                    //txtamount.setText(getCurrencyFormat(dbhelper.PriceRoundTo(Double.toString(amount)).replace(pricetrim, "").trim()));
+
+                                } else //added WHM [2020-02-05] MDY1-20023
+                                {
+                                    current_unit = 0;
+                                }
+
+                            } else {
+                                txttakeaway.setTag(false);
+                                // itemparent.setBackgroundColor(Color.TRANSPARENT);
+                            }
+
+                            // added by WaiWL on 23/07/2015
+                            if (chkisFinishedItem.isChecked()) {
+                                txtisFinishedItem.setTag(true);
+                                itemparent.setBackgroundColor(Color
+                                        .parseColor("#dddbdb"));
+                                dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
+                                        txtsr.getText().toString().replace(".", "").trim(),
+                                        txtisFinishedItem.getTag().equals(true) ? "1" : "0");
+                            } else {
+                                txtisFinishedItem.setTag(false);
+                                if (!GlobalClass.use_foodtruck) {
+                                    dbhelper.UpdateFinishedItem(dbhelper.getServiceURL(), saleid,
+                                            txtsr.getText().toString().replace(".", "").trim(),
+                                            txtisFinishedItem.getTag().equals(true) ? "1" : "0");
+                                }
+
+                            }
+                            ////////////
+
+//                        if (chktakeaway.isChecked()) {
+//                            txttakeaway.setTag(true);
+//                            itemparent.setBackgroundColor(Color.parseColor("#a10099"));
+//                        }
+
+                            if (txtsr.getTag().toString().equals("P") || txtsr.getTag().toString().equals("Q")) {
+
+                                String oldqty = dbhelper.getSaleItemQtyBySaleIDandSR(saleid,
+                                        txtrealsr.getText().toString()).get(0).getqty();
+
+                                LinearLayout mainparentlayout = ((LinearLayout) (txtsr.getParent().getParent()));
+
+                                if (Double.parseDouble(oldqty) != Double.parseDouble(txtqty.getText().toString())) {
+                                    txtsr.setTag("Q");
+
+                                    if (mainparentlayout.getChildCount() > 1) {
+                                        for (int i = 1; i < mainparentlayout.getChildCount(); i++) {
+
+                                            ((LinearLayout) mainparentlayout.getChildAt(i)).getChildAt(0).setTag("Q");
+                                        }
+                                    }
+                                } else {
+//                                txtsr.setTag("P");
+//                                if (mainparentlayout.getChildCount() > 1) {
+//                                    for (int i = 1; i < mainparentlayout.getChildCount(); i++) {
+//
+//                                        ((LinearLayout) mainparentlayout.getChildAt(i)).getChildAt(0).setTag("Q");
+//                                    }
+//                                }
+                                }
+                            }
+
+                            if (GlobalClass.use_foodtruck) {
+                                Submit_Voucher(0);
+                            }
+
+                            itemparent.setBackgroundColor(Color.TRANSPARENT);
+                            dialog.dismiss();
+                            CalculateTotal();
+                        }
                     }
                 });
 
@@ -10999,13 +11255,15 @@ public class OrderTaking extends Activity {
                             //txtqty.setText(Integer.toString(Integer.parseInt(txtqty.getText().toString()) + 1));
 //						String tmp=Double.toString(Double.parseDouble(txtqty.getText().toString()) + 1);
 //						txtqty.setText(dbhelper.qtyroundto(tmp).replace(".00", "").trim());
+
                             String trimString = ".";
                             String qtydecimal = dbhelper.getqty_decimal_places();
                             for (int i = 0; i < Integer.valueOf(qtydecimal); i++) {
                                 trimString = trimString + "0";
                             }
-                            String tmp = Double.toString(Double.parseDouble(txtqty.getText().toString()) + 1);
-                            txtqty.setText(dbhelper.qtyroundto(tmp).replace(trimString, "").trim());
+                            qtytmp = Double.toString(Double.parseDouble(txtqty.getText().toString()) + 1);
+                            txtqty.setText(dbhelper.qtyroundto(qtytmp).replace(trimString, "").trim());
+
                         }
 
                     }
@@ -11041,8 +11299,8 @@ public class OrderTaking extends Activity {
                                 for (int i = 0; i < Integer.valueOf(qtydecimal); i++) {
                                     trimString = trimString + "0";
                                 }
-                                String tmp = Double.toString(Double.parseDouble(txtqty.getText().toString()) - 1);
-                                txtqty.setText(dbhelper.qtyroundto(tmp).replace(trimString, "").trim());
+                                qtytmp = Double.toString(Double.parseDouble(txtqty.getText().toString()) - 1);
+                                txtqty.setText(dbhelper.qtyroundto(qtytmp).replace(trimString, "").trim());
                             }
 
                         } else {
@@ -11551,6 +11809,7 @@ public class OrderTaking extends Activity {
                                     int qty = Integer.parseInt(txtmodifierqty.getText().toString());
                                     qty = qty + 1;
                                     txtmodifierqty.setText(Integer.toString(qty));
+
                                 }
                             });
 
@@ -11898,7 +12157,7 @@ public class OrderTaking extends Activity {
                 TextView txtqtyname = new TextView(this);
                 // txtqtyname.setText(Integer.toString((int)(Double.parseDouble(selectedItemModifierObj.getqty())
                 // / Double.parseDouble(txtqty.getTag().toString()))));
-                txtqtyname.setText(/*Double.parseDouble(txtqty.getTag().toString()) * */ Double.parseDouble(selectedItemModifierObj.getqty()) + "");
+                txtqtyname.setText(selectedItemModifierObj.getqty());/*Double.parseDouble(txtqty.getTag().toString()) * */ //Double.parseDouble(selectedItemModifierObj.getqty()) + "");
                 txtqtyname.setPadding(0, 2, 0, 2);
                 txtqtyname.setTextColor(txtcolor);
                 txtqtyname.setTypeface(font, Typeface.BOLD);
@@ -11907,8 +12166,7 @@ public class OrderTaking extends Activity {
 
                 if (dbhelper.GetModifierOrgQty() == true) {
                     txtqtyname.setTag((int) ((Double.parseDouble(selectedItemModifierObj.getqty()))
-                            * Double.parseDouble(txtqty.getTag().toString()))
-                    );
+                            * Double.parseDouble(txtqty.getTag().toString())));
 //                    txtqtyname.setText(Integer.toString(
 //                            (int) ((Double.parseDouble(selectedItemModifierObj.getqty()))
 //                                    * Double.parseDouble(txtqty.getTag().toString()))

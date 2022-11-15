@@ -76,11 +76,13 @@ public class Json_class {
 	        StringEntity se = new StringEntity(headerarray.toString(),"UTF-8");
 	        // 6. set httpPost Entity
 	        httpPost.setEntity(se);	        
-	        // 7. Set some headers to inform server about the type of the content   
-	        httpPost.setHeader("Accept", "application/json");
-	        httpPost.setHeader("Content-type", "application/json");
-	        httpPost.setHeader("Accept-Charset", "UTF-8");
-	        httpPost.setHeader("Charset", "UTF-8");
+	        // 7. Set some headers to inform server about the type of the content
+
+			//Commented by KNO (10-11-2022)
+//	        httpPost.setHeader("Accept", "application/json");
+//	        httpPost.setHeader("Content-type", "application/json");
+//	        httpPost.setHeader("Accept-Charset", "UTF-8");
+//	        httpPost.setHeader("Charset", "UTF-8");
 	        // 8. Execute POST request to the given URL
 	        HttpResponse httpResponse = httpclient.execute(httpPost);
 	        // 9. receive response as inputStream
