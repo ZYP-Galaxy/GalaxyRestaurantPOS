@@ -139,6 +139,18 @@ public class VoucherDetail extends Activity {
             ((TextView) findViewById(R.id.tv_deliverytype_name)).setVisibility(View.GONE);
         }
 
+        if (dbhelper.getAppSetting("Government_Tax").equals("N")) {
+            ((LinearLayout) findViewById(R.id.loyout_Gtax)).setVisibility(View.GONE);
+        }
+
+        if (dbhelper.getAppSetting("Service_Tax").equals("N")) {
+            ((LinearLayout) findViewById(R.id.loyout_Stax)).setVisibility(View.GONE);
+        }
+
+        if (dbhelper.getAppSetting("Room_Charge").equals("N")) {
+            ((LinearLayout) findViewById(R.id.roomlayout)).setVisibility(View.GONE);
+        }
+
         binditemdata(tranid);
         GlobalClass.ChangeLanguage((ViewGroup) findViewById(R.id.voulayout),
                 this, 18, font);

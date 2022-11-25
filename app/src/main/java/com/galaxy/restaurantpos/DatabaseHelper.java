@@ -2899,7 +2899,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     tablesobj.setcode(cursor.getString(0));
                     tablesobj.setusr_code(cursor.getString(1));
                     tablesobj.setdescription(cursor.getString(2));
-                    //tablesobj.setdescription((LoginActivity.isUnicode)?Dictionary.Uniconverter.convert(cursor.getString(2)):cursor.getString(2));
+                    //tablesobj.setdescription((!LoginActivity.isUnicode)?Dictionary.Uniconverter.convert(cursor.getString(2)):cursor.getString(2));
                     tablesobj.setsale_price(cursor.getString(3));
                     list.add(tablesobj);
                 } while (cursor.moveToNext());
@@ -4434,8 +4434,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetSystemSetting");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5723,7 +5723,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        //if (LoginActivity.isUnicode) LoginActivity.isUnicode = false;
+        //if (!LoginActivity.isUnicode) !LoginActivity.isUnicode = false;
 
         cv.put(colsrno, T.getsr());
         cv.put(colEnglish, T.getLanguage1());
@@ -5746,7 +5746,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-//		if (LoginActivity.isUnicode) LoginActivity.isUnicode = false;
+//		if (!LoginActivity.isUnicode) !LoginActivity.isUnicode = false;
 
         cv.put(colcustomerid, T.getcustomerid());
         cv.put(colcustomercode, T.getcustomercode());
@@ -5761,8 +5761,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/GetArea");
         //Added by KLM for UniZawgyi AutoDetect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5783,7 +5783,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 A.setArea_Code(c.getString(colArea_Code));
                 A.setRemark(c.getString(colRemark));
 
-//				if (LoginActivity.isUnicode) LoginActivity.isUnicode = false;
+//				if (!LoginActivity.isUnicode) !LoginActivity.isUnicode = false;
 
                 AddArea(A);
             } catch (JSONException e) {
@@ -5801,8 +5801,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5874,8 +5874,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5917,8 +5917,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5957,8 +5957,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -5993,8 +5993,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6324,8 +6324,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/GetTable");
         //Added by KLM for Uni/Zawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6397,8 +6397,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetAppSetting");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6434,8 +6434,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetItemRemark?categoryid=" + categoryid);
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6474,7 +6474,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Json_class jsonclass = new Json_class();
         String changecount = jsonclass.getString(url + "/Data/GetHeaderRemark?tranid=" + java.net.URLEncoder.encode(tranid));
 
-        Remark = LoginActivity.isUnicode ? Rabbit.zg2uni(changecount) : changecount;
+        Remark = !LoginActivity.isUnicode ? Rabbit.uni2zg(changecount) : changecount;
         return Remark;
     }
 
@@ -6578,8 +6578,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetMealType");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6614,8 +6614,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetUserLogTable");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6650,8 +6650,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetPromotion");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6725,8 +6725,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetDictionary");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6758,8 +6758,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/GetPosUser");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6808,8 +6808,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/GetSalesMen");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6864,8 +6864,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + java.net.URLEncoder.encode(usr_code));
 
         try {
-            if (LoginActivity.isUnicode) {
-                jsonarray = new JSONArray(Rabbit.zg2uni(jsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                jsonarray = new JSONArray(Rabbit.uni2zg(jsonarray.toString()));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -6909,8 +6909,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetModifierGroup");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6943,8 +6943,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/GetCustomer");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6985,8 +6985,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + java.net.URLEncoder.encode(timelog));
 //		added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -6997,7 +6997,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             JSONObject c;
             try {
                 c = itemjsonarray.getJSONObject(i);
-//				String  unicodeString=Rabbit.zg2uni(itemjsonarray.getJSONObject(i).toString());
+//				String  unicodeString=Rabbit.uni2zg(itemjsonarray.getJSONObject(i).toString());
                 //c=new Gson().fromJson(unicodeString, JsonObject.class);
 //				c=unicodeString;
                 ItemsObj item = new ItemsObj();
@@ -7037,7 +7037,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setCategory2(c.getString(colCategory2));//added by KLM on 07062022
                 // byte[] decodedString = Base64.decode(c.getString(colphoto),
                 // 0);
-                //LoginActivity.isUnicode = false;    //added by ZYP [overwrite unicode] [06-01-2020]
+                //!LoginActivity.isUnicode = false;    //added by ZYP [overwrite unicode] [06-01-2020]
 
                 AddItems(item.getcode(), item.getusr_code(),
                         item.getdescription(), item.getsale_price(),
@@ -7073,8 +7073,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + java.net.URLEncoder.encode(getDevice_Name()));
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7131,7 +7131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         // byte[] decodedString =
                         // Base64.decode(c.getString(colphoto), 0);
 
-//						LoginActivity.isUnicode = false;    //added by ZYP [overwrite unicode] [06-01-2020]
+//						!LoginActivity.isUnicode = false;    //added by ZYP [overwrite unicode] [06-01-2020]
 
                         AddItems(item.getcode(), item.getusr_code(),
                                 item.getdescription(), item.getsale_price(),
@@ -7209,8 +7209,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetSpecialMenu_code");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7248,8 +7248,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetCustomerCountSetup");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                custcountSetuparray = new JSONArray(Rabbit.zg2uni(custcountSetuparray.toString()));
+            if (!LoginActivity.isUnicode) {
+                custcountSetuparray = new JSONArray(Rabbit.uni2zg(custcountSetuparray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7293,8 +7293,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetSetmenuitem");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7331,8 +7331,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetSetmenuChangeditem");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7432,8 +7432,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + java.net.URLEncoder.encode(timelog));
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7498,8 +7498,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + java.net.URLEncoder.encode(getDevice_Name()));
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -7530,7 +7530,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     item.setdescription2(c.getString(coldescription2));
                     item.setdescription3(c.getString(coldescription3));
 
-//					if (LoginActivity.isUnicode) LoginActivity.isUnicode = false;
+//					if (!LoginActivity.isUnicode) !LoginActivity.isUnicode = false;
 
                     AddModifierItems(item.getcode(), item.getusr_code(),
                             item.getdescription(), item.getsale_price(),
@@ -8465,8 +8465,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url + "/Data/LoadSoldOut");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -8547,8 +8547,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetCashierPrinter");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9297,8 +9297,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9332,8 +9332,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9368,8 +9368,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9403,8 +9403,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9703,8 +9703,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "/Data/GetCurrency");
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9899,8 +9899,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9933,8 +9933,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {
@@ -9987,8 +9987,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
-            if (LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.zg2uni(itemjsonarray.toString()));
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {

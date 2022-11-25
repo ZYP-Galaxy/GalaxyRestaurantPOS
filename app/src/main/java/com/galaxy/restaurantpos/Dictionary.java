@@ -30,7 +30,7 @@ public class Dictionary { //modified by EKK on 10/07/2019
 //        return _language2;
 //    }
     public String getLanguage2() {
-        return /*LoginActivity.isUnicode? Rabbit.zg2uni(_language2):*/_language2;
+        return /*LoginActivity.isUnicode? Rabbit.uni2zg(_language2):*/_language2;
     }
     public void setLanguage2(String language2) {
         this._language2 = language2;

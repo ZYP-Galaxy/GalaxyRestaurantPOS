@@ -223,6 +223,7 @@ public class OrderTaking extends Activity {
     static String mainCode = "";
     String orgqty = "";
     String qtytmp = "";
+    public static boolean isprint_order = false;
     //endregion Variables
 
     @Override
@@ -6872,7 +6873,7 @@ public class OrderTaking extends Activity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
                                           EditText text = (EditText) dialog.findViewById(R.id.txtHeaderRemark);
-                                          value = LoginActivity.isUnicode ? Rabbit.uni2zg(text.getText().toString()) : text.getText().toString();
+                                          value = !LoginActivity.isUnicode ? Rabbit.uni2zg(text.getText().toString()) : text.getText().toString();
                                           if (!value.equals("")) {
                                               dbhelper.SaveHeaderRemark(value, saleid);
                                               dialog.dismiss();
@@ -7285,7 +7286,7 @@ public class OrderTaking extends Activity {
                 jsonmessage = jsonclass.POST(
                         new DatabaseHelper(this).getServiceURL()
                                 + "/Data/InsertCustomer",
-                        LoginActivity.isUnicode ? new JSONArray(Rabbit.uni2zg(notejsonarray.toString())) : notejsonarray);
+                        !LoginActivity.isUnicode ? new JSONArray(Rabbit.uni2zg(notejsonarray.toString())) : notejsonarray);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -7374,7 +7375,7 @@ public class OrderTaking extends Activity {
                 jsonobj.put("ID", ItemRemarkObj.getID());
                 Toast.makeText(OrderTaking.this, LoginActivity.isUnicode + " Unicode", Toast.LENGTH_LONG).show();
                 //Added by KLM to Save with Zawgyi to Database 23022022
-                jsonobj.put("ItemRemark", LoginActivity.isUnicode ? Rabbit.uni2zg(ItemRemarkObj.getItemRemark()) : ItemRemarkObj.getItemRemark());
+                jsonobj.put("ItemRemark", !LoginActivity.isUnicode ? Rabbit.uni2zg(ItemRemarkObj.getItemRemark()) : ItemRemarkObj.getItemRemark());
 
 
             } catch (JSONException e) {
@@ -8699,10 +8700,11 @@ public class OrderTaking extends Activity {
                 else if (Integer.parseInt(jsonmessage.get(0).toString()) == 2) {
                     Msg[0] = "Warning!";
                     Msg[1] = jsonmessage.get(2).toString();
-
+                    isprint_order = true;
                     saveddata[0] = "";
                     saveddata[1] = "";
                     return Msg;
+
                 } else if (Integer.parseInt(jsonmessage.get(0).toString()) == 1) {
                     if (GlobalClass.use_foodtruck) {
                         Msg[0] = "Message";
@@ -9775,11 +9777,15 @@ public class OrderTaking extends Activity {
 
                     }
                     finish();
-                } else {
+                } else if (isprint_order == true && title != "Message") {
+                    isprint_order = false;
+                    Intent data = new Intent(ctx, TableScreenActivity.class);
+                    startActivity(data);
 
                 }
             }
         });
+
         // Showing Alert Message
         alertDialog.show();
 

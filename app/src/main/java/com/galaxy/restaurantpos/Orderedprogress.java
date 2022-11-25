@@ -51,7 +51,7 @@ public class Orderedprogress extends Activity {
 
 		ctx = this;
 		//font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
-		if(LoginActivity.isUnicode)
+		if(!LoginActivity.isUnicode)
 			font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
 		else
 			font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");

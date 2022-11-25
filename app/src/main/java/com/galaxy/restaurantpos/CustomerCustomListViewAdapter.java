@@ -47,7 +47,7 @@ public class CustomerCustomListViewAdapter extends ArrayAdapter<RowItem> {
             holder = (ViewHolder) convertView.getTag();
 
 
-        if(LoginActivity.isUnicode)		//added by ZYP for Unicode
+        if(!LoginActivity.isUnicode)		//added by ZYP for Unicode
             font=Typeface.createFromAsset(this.context.getAssets(), "fonts/Pyidaungsu.ttf");
         else
             font=Typeface.createFromAsset(this.context.getAssets(), "fonts/Zawgyi-One.ttf");

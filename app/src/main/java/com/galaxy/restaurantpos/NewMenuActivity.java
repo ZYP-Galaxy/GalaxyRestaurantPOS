@@ -141,7 +141,7 @@ public class NewMenuActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (LoginActivity.isUnicode)
+        if (!LoginActivity.isUnicode)
             font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
         else
             font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
