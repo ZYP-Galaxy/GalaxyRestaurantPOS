@@ -4852,7 +4852,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         sSql = String.format(sSql, colMyanmar, DictionaryTable, colEnglish,
-                English);
+                English.toLowerCase());
         Cursor cursor = db.rawQuery(sSql, null);
         try {
             // looping through all rows and adding to list
@@ -4880,7 +4880,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //added by EKK
         sSql = String.format(sSql, colChinese, DictionaryTable, colEnglish,
-                English);
+                English.toLowerCase());
         Cursor cursor = db.rawQuery(sSql, null);
         try {
             // looping through all rows and adding to list
