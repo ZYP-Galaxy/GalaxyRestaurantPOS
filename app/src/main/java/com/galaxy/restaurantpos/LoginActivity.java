@@ -28,6 +28,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -98,6 +99,7 @@ public class LoginActivity extends Activity {
     //public static Boolean isUnicode;
     LocationManager locationManager;
     String latitude, longitude;
+    public static SharedPreferences deviceid;
 
     @TargetApi(11)
     @Override
@@ -202,6 +204,23 @@ public class LoginActivity extends Activity {
          */
         // Toast.makeText(this,MDetect.INSTANCE.isUnicode()?"မင်္ဂလာပါ": Rabbit.uni2zg("မင်္ဂလာပါ"),Toast.LENGTH_SHORT).show();
     }
+
+    private void checkPermissions() {
+        int permission1 = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        //int permission2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN);
+        if (permission1 != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    1
+            );
+        }
+    }
+
+    public static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_PHONE_STATE,
+    };
 
     public void btnNo_OnClick(View v) {
 
