@@ -6214,7 +6214,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray itemjsonarray = Json_class.getJson(url
                 + "/Data/GetSaleItem?tranid="
                 + java.net.URLEncoder.encode(tranid));
+        try {
+            if (!LoginActivity.isUnicode) {
+                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
+            }
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(SaleItemTable, colsaleid + "=" + tranid, null);
         if (itemjsonarray.length() == 0) {

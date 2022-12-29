@@ -6873,7 +6873,7 @@ public class OrderTaking extends Activity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
                                       public void onClick(View v) {
                                           EditText text = (EditText) dialog.findViewById(R.id.txtHeaderRemark);
-                                          value = !LoginActivity.isUnicode ? Rabbit.uni2zg(text.getText().toString()) : text.getText().toString();
+                                          value = !LoginActivity.isUnicode ? Rabbit.zg2uni(text.getText().toString()) : text.getText().toString();
                                           if (!value.equals("")) {
                                               dbhelper.SaveHeaderRemark(value, saleid);
                                               dialog.dismiss();
@@ -8541,7 +8541,11 @@ public class OrderTaking extends Activity {
                                 jsonobj.put("printed", false);
                                 jsonobj.put("modifiedrowsr", saleitemobj.getmodifiedrowsr());
                                 jsonobj.put("unittype", saleitemobj.getunittype());
-                                jsonobj.put("remark", saleitemobj.getremark());
+                                String detremark = saleitemobj.getremark();
+                                if (!LoginActivity.isUnicode) {
+                                    detremark = Rabbit.zg2uni(detremark);
+                                }
+                                jsonobj.put("remark", detremark);
                                 jsonobj.put("itemcancel", saleitemobj.getcancelflag());
                                 jsonobj.put("status", saleitemobj.getstatus());
                                 if (salesmenid == 0) {
@@ -11919,7 +11923,8 @@ public class OrderTaking extends Activity {
         return totalqty;
     }
 
-    public void BindSelectedModifiertoedititemlist(Dialog dialog, List<SelectedItemModifierObj> modifieritemobjlist) {
+    public void BindSelectedModifiertoedititemlist(Dialog
+                                                           dialog, List<SelectedItemModifierObj> modifieritemobjlist) {
 
         final LinearLayout modifierlayout = (LinearLayout) dialog
                 .findViewById(R.id.modifierlayout);
@@ -12077,7 +12082,8 @@ public class OrderTaking extends Activity {
         }
     }
 
-    public void BindModifieritemtolist(View parent, List<SelectedItemModifierObj> modifierobjlist, boolean isnew) {
+    public void BindModifieritemtolist(View
+                                               parent, List<SelectedItemModifierObj> modifierobjlist, boolean isnew) {
         final LinearLayout layout = (LinearLayout) parent.getParent();
         if (layout.getChildCount() > 1) {
             while (layout.getChildCount() > 1) {
@@ -12757,7 +12763,8 @@ public class OrderTaking extends Activity {
     }
 
 
-    public String getCurrencyFormat(String value)    //added by ZYP [19-02-2020] for currency format
+    public String getCurrencyFormat(String
+                                            value)    //added by ZYP [19-02-2020] for currency format
     {
         DecimalFormat priceFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
         String price_parren = "#,##0";
