@@ -4340,6 +4340,7 @@ public class OrderTaking extends Activity {
                 Fire_withProgressbar();
                 break;
             case R.id.butsplitbill:
+                itemtransfer=false;//added by KLM to prevent display transfer while itemtransfer is true while clicking split bill 30112022
                 //added WHM [2020-05-14]
                 if (deliverytype_id != 0) {
                     showAlertDialogBox(ctx, "Warning!", "This voucher is delivery or self pickup voucher!", false);

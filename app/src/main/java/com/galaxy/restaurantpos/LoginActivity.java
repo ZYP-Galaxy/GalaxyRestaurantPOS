@@ -45,6 +45,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -112,7 +113,7 @@ public class LoginActivity extends Activity {
         // Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        deviceid = getSharedPreferences("deviceid", MODE_PRIVATE);
         if (android.os.Build.VERSION.SDK_INT > 9) {// for check connection
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
@@ -176,7 +177,14 @@ public class LoginActivity extends Activity {
             killProcess(this.getPackageName());
         }
 
-        String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
+        //Added by KLM to unique Device id 25102022
+
+        if (deviceid.getString("deviceid","empty").equals("empty")) {
+            checkPermissions();
+
+        }
+
+        /*String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (null != tm) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -196,7 +204,7 @@ public class LoginActivity extends Activity {
         }
         GlobalClass.Identifier = deviceUniqueIdentifier;
 
-        CheckTrialDate();
+        CheckTrialDate();*/
 
         /*
          * int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION ;
@@ -955,18 +963,54 @@ public class LoginActivity extends Activity {
 
         JSONArray salejsonarray = new JSONArray();
         JSONObject jsonobj = new JSONObject();
-        // sale_head_main
-//        String deviceUniqueIdentifier = null; ////modified by ZYP [19-06-2020] for Device ID unique
-//        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//        if (null != tm) {
-//            deviceUniqueIdentifier = tm.getDeviceId();
-//        }
-//        if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
-//            deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-//        }
-//        GlobalClass.Identifier = deviceUniqueIdentifier;
+        //Added by KLM to unique Device id 25102022
 
-        jsonobj.put("DeviceID", GlobalClass.GetTabletID());
+        if(deviceid.getString("deviceid","empty").equals("empty")){
+
+            if (GlobalClass.Identifier.isEmpty()) {
+
+                String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
+                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                if (tm != null) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    try {//added try catch by KLM to avoid security expection occur above android 10 26102022
+                        deviceUniqueIdentifier = tm.getDeviceId();
+                    } catch (Exception ex) {
+                        if (deviceUniqueIdentifier == null || deviceUniqueIdentifier.length() == 0) {
+                            deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                        }
+
+                    }
+
+                }
+                if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
+                    deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                }
+                GlobalClass.Identifier = deviceUniqueIdentifier;
+
+            }
+
+            Log.i("LoginActivity", GlobalClass.Identifier);
+            SharedPreferences.Editor editor = deviceid.edit();
+            editor.remove("deviceid");
+            editor.commit();
+
+            editor = deviceid.edit();
+            editor.putString("deviceid", GlobalClass.GetTabletID());
+            editor.commit();
+        }
+
+
+        jsonobj.put("DeviceID", deviceid.getString("deviceid","empty"));
         jsonobj.put("DeviceBuildNumber", Build.DISPLAY);
         jsonobj.put("DeviceName", DeviceName);
 
@@ -1016,7 +1060,7 @@ public class LoginActivity extends Activity {
             JSONArray jsonmessage = jsonclass.getJson(new DatabaseHelper(this)
                     .getServiceURL()
                     + "/Data/UnRegister?DeviceID="
-                    + java.net.URLEncoder.encode(GlobalClass.GetTabletID()));
+                    + java.net.URLEncoder.encode(deviceid.getString("deviceid","empty")));
 
             if (jsonmessage.length() > 0) {
                 if (Integer.parseInt(jsonmessage.get(0).toString()) == 0) {
@@ -1778,16 +1822,16 @@ public class LoginActivity extends Activity {
             pos = Integer.parseInt(txtUserName.getTag().toString());
 
             //added by ZYP for already login user
-//            String user = "";
-//            final String dataurl = new DatabaseHelper(this).getServiceURL();
-//            user = dbhelper.getLoginUser(String.valueOf(pos));
-//
-//            if(!user.equals("")) {
-//
-//                showAlertDialog(this, "Warring!!","User already login!" , false);
-//                //Toast.makeText(this, "User already login!", Toast.LENGTH_LONG).show();
-//                return;
-//            }
+            String user = "";
+            final String dataurl = new DatabaseHelper(this).getServiceURL();
+            user = dbhelper.getLoginUser(String.valueOf(pos),deviceid.getString("deviceid","empty"));//added Device name by KLM to avoid duplicate login 29122022
+
+            if(!user.equals("")) {
+
+                showAlertDialog(this, "Warring!!","User already login!" , false);
+                //Toast.makeText(this, "User already login!", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             PosUser SelectedUserobj = dbhelper.getPosUserByUserID(pos);
             if (txtPassword.getText().toString().equals(SelectedUserobj.getPassword())) {
@@ -1815,7 +1859,7 @@ public class LoginActivity extends Activity {
                         String jsonmessage = jsonclass
                                 .getString(new DatabaseHelper(this).getServiceURL()
                                         + "/Data/CheckRegistration?DeviceID="
-                                        + java.net.URLEncoder.encode(GlobalClass.GetTabletID()));
+                                        + java.net.URLEncoder.encode(deviceid.getString("deviceid","empty")));
 
                         if (jsonmessage.trim().equals("True")) {
                             ((TextView) findViewById(R.id.txtpassword)).setText("");
@@ -1825,7 +1869,7 @@ public class LoginActivity extends Activity {
                             JSONObject jsonobjlogin = new JSONObject();
                             //sale_head_main
                             try {
-                                jsonobjlogin.put("DeviceID", GlobalClass.GetTabletID());
+                                jsonobjlogin.put("DeviceID", deviceid.getString("deviceid","empty"));
                             } catch (JSONException e1) {
                                 // TODO Auto-generated catch block
                                 e1.printStackTrace();
@@ -1857,7 +1901,7 @@ public class LoginActivity extends Activity {
                             dbhelper.LoadSpecialMenu_code(daurl);
                             // /////////////
 
-                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString());
+                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString(),deviceid.getString("deviceid","empty"));
                             if (saveUser.trim().equals("successful")) {
                                 String def_locationID = Json_class.getString_LOCID(dbhelper
                                         .getServiceURL()

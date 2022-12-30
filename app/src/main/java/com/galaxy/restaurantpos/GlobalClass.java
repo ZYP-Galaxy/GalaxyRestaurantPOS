@@ -183,7 +183,8 @@ public class GlobalClass {
                 Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
                 Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
                 Build.USER.length() % 10 + //Build.SERIAL; //13 digits 0rginal
-                ((Build.SERIAL.equals("unknown")) ? Identifier : Build.SERIAL); //modified by ZYP [19-06-2020] for Device ID unique
+                Build.SERIAL+Identifier ;//added by KLM to unique device id 25102022
+                //((Build.SERIAL.equals("unknown")) ? Identifier : Build.SERIAL); //modified by ZYP [19-06-2020] for Device ID unique
         return ID;
     }
 

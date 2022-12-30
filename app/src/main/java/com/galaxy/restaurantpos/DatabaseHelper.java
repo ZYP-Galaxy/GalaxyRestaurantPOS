@@ -6521,22 +6521,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //added by ZYP [06-02-2020]
-    public String SaveLoginUser(String userId) {
-
+    public String SaveLoginUser(String userId,String devicename) {
         String jsonmsg = Json_class.getString(getServiceURL()
                 + "/Data/SaveLoginUser?userid="
-                + java.net.URLEncoder.encode(userId));
+                + java.net.URLEncoder.encode(userId)
+                +"&devicename="
+                + java.net.URLEncoder.encode(devicename));
 
         return jsonmsg;
+
     }
 
     //added by ZYP [06-02-2020]
-    public String getLoginUser(String userId) {
+    public String getLoginUser(String userId,String devicename) {
 
         String jsonmsg = Json_class.getString(getServiceURL()
                 + "/Data/GetLoginUser?userid="
-                + java.net.URLEncoder.encode(userId));
-
+                + java.net.URLEncoder.encode(userId)
+                +"&devicename="//added Device name by KLM to avoid duplicate login 29122022
+                + java.net.URLEncoder.encode(devicename));
         return jsonmsg;
 
 
@@ -6721,7 +6724,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void SetLoadedDate(String Datalink) {
         url = Datalink;
         String result = Json_class.getString(url + "/Data/SetLoadedDate?DeviceID="
-                + java.net.URLEncoder.encode(GlobalClass.GetTabletID()) + "&DeviceName=" + java.net.URLEncoder.encode(getDevice_Name()));
+                + java.net.URLEncoder.encode(LoginActivity.deviceid.getString("deviceid","empty")) + "&DeviceName=" + java.net.URLEncoder.encode(getDevice_Name()));
 
     }
 

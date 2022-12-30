@@ -1138,7 +1138,7 @@ public class MainScreen extends Activity {
         JSONArray salejsonarray = new JSONArray();
         JSONObject jsonobj = new JSONObject();
         //sale_head_main
-        jsonobj.put("DeviceID", GlobalClass.GetTabletID());
+        jsonobj.put("DeviceID", LoginActivity.deviceid.getString("deviceid","empty"));
         jsonobj.put("DeviceBuildNumber", Build.DISPLAY);
 
         salejsonarray.put(jsonobj);
@@ -1167,7 +1167,7 @@ public class MainScreen extends Activity {
         // check for Internet status
         if (GlobalClass.CheckConnectionForSubmit(this)) {
             Json_class jsonclass = new Json_class();
-            final JSONArray jsonmessage = jsonclass.getJson(new DatabaseHelper(this).getServiceURL() + "/Data/UnRegister?DeviceID=" + java.net.URLEncoder.encode(GlobalClass.GetTabletID()));
+            final JSONArray jsonmessage = jsonclass.getJson(new DatabaseHelper(this).getServiceURL() + "/Data/UnRegister?DeviceID=" + java.net.URLEncoder.encode(LoginActivity.deviceid.getString("deviceid","empty")));
 
             if (jsonmessage.length() > 0) {
                 if (Integer.parseInt(jsonmessage.get(0).toString()) == 0) {
