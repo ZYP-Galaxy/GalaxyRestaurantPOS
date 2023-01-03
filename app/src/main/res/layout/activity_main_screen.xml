@@ -259,12 +259,6 @@
                 android:text="© CopyRight 2013-2030 Galaxy Software. All Rights Reserved."
                 android:textColor="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="V 2.1.0 Beta   "
-                android:textColor="#FFFFFF" />
         </LinearLayout>
     </LinearLayout>
 
