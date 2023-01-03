@@ -1,51 +1,32 @@
 package com.galaxy.restaurantpos;
 
-import java.io.File;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -53,24 +34,31 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class NewMenuActivity extends Activity {
     public static Typeface font;
@@ -141,10 +129,10 @@ public class NewMenuActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (!LoginActivity.isUnicode)
-            font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
-        else
-            font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
+//        if (!LoginActivity.isUnicode)
+//            font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
+//        else
+//            font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
 
 //        isunicode = LoginActivity.isUnicode;
 
@@ -246,8 +234,7 @@ public class NewMenuActivity extends Activity {
         getPouupValue();
 
 
-        sharedpreferences = getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -293,20 +280,17 @@ public class NewMenuActivity extends Activity {
             // GlobalClass.getDPsize(itemwidth[1], this),
             // GlobalClass.getDPsize(100, ctx));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    GlobalClass.getDPsize(180, ctx), GlobalClass.getDPsize(100,
-                    ctx));
+                    GlobalClass.getDPsize(180, ctx), GlobalClass.getDPsize(100, ctx));
             params.weight = 1.0f;
             params.setMargins(0, GlobalClass.getDPsize(2, ctx),
                     GlobalClass.getDPsize(3, ctx), 0);
-            categorylayout.addView(CreateSpecialmenuButton(specialmenuObj),
-                    params);
+            categorylayout.addView(CreateSpecialmenuButton(specialmenuObj), params);
         }
         List<ItemCategoryObj> classobjlist = dbhelper.getItemCategorylist(str);
 
         for (ItemCategoryObj itemClassObj : classobjlist) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    GlobalClass.getDPsize(180, ctx), GlobalClass.getDPsize(100,
-                    ctx)); // LayoutParams.FILL_PARENT
+                    GlobalClass.getDPsize(180, ctx), GlobalClass.getDPsize(100, ctx)); // LayoutParams.FILL_PARENT
             params.weight = 1.0f;
             params.setMargins(0, GlobalClass.getDPsize(2, ctx),
                     GlobalClass.getDPsize(3, ctx), 0);
@@ -329,7 +313,7 @@ public class NewMenuActivity extends Activity {
 
     private Button CreateSpecialmenuButton(SpecialMenuObj specialmenuobj) {
         Button butcategory = new Button(ctx);
-        butcategory.setText( specialmenuobj.getMenuName());
+        butcategory.setText(specialmenuobj.getMenuName());
         butcategory.setTag(specialmenuobj.getMenuID());
         butcategory.setTextAppearance(ctx, R.style.categorybutton_text);
         // butcategory.setBackgroundColor(Color.parseColor("#070D59"));
@@ -383,7 +367,6 @@ public class NewMenuActivity extends Activity {
 
         itemlayout = (LinearLayout) findViewById(R.id.menuitemlayout);
 
-
         //itemscrolllayout = (HorizontalScrollView) findViewById(R.id.menuitemscrollview);
         itemscrolllayout = (ScrollView) findViewById(R.id.menuitemscrollview);
 
@@ -391,31 +374,25 @@ public class NewMenuActivity extends Activity {
                 LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
         layoutparams.weight = 1.0f;
 
-
         itemwidth = dbhelper.getTableSize();
-
 
         itemlayout.removeAllViews();
 
         List<ItemsObj> itemobjlist = new ArrayList<ItemsObj>();
 
         if (!(activecategory == null)) {
-            activecategory.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    null, null);
+            activecategory.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             activecategory.setGravity(Gravity.CENTER);
-
             activecategory.setBackgroundResource(R.drawable.roundcategorybutton);
         }
 
         if (classorcategory == "Category") {
-            itemobjlist = dbhelper.getItemslistbycategoryid(clickbutton
-                    .getTag().toString(), str);
+            itemobjlist = dbhelper.getItemslistbycategoryid(clickbutton.getTag().toString(), str);
             activecategory = clickbutton;
             ClassOrCategory = classorcategory;
+
         } else if (classorcategory == "Specialmenu Category") {
-            itemobjlist = dbhelper
-                    .getSpecialmenuitemlistbycategoryid(clickbutton.getTag()
-                            .toString());
+            itemobjlist = dbhelper.getSpecialmenuitemlistbycategoryid(clickbutton.getTag().toString());
             activecategory = clickbutton;
             ClassOrCategory = classorcategory;
         }
@@ -602,9 +579,9 @@ public class NewMenuActivity extends Activity {
 //        }
 
         final String dataurl = new DatabaseHelper(this).getServiceURL();
-        Picasso.get().load(dataurl + "/Data/GetImage?usr_code="
-                        + itemsObj.getusr_code().trim())
+        Picasso.get().load(dataurl + "/Data/GetImage?usr_code=" + itemsObj.getusr_code().trim())
                 .placeholder(R.drawable.default_menuimage)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .error(R.drawable.default_menuimage)
                 .into(image);
 
@@ -615,7 +592,6 @@ public class NewMenuActivity extends Activity {
         txt.setTypeface(font);
         txt.setSingleLine(false);// comment
         txt.setGravity(Gravity.LEFT);// center
-        //txt.append("\n");
         modifierlayout.addView(txt, layouttext);
         //double itemPrice = Double.parseDouble(itemsObj.getsale_price());
 //		txt.append(dbhelper.PriceRoundTo(Double.toString(itemPrice))
@@ -633,7 +609,7 @@ public class NewMenuActivity extends Activity {
 
         //added WHM [2020-05-22] tablet menu remark show
         if (use_Tablet_Menu && !itemsObj.getremark().trim().equals("")) {
-            txt_remark.append("( " +  itemsObj.getremark()+ " )");
+            txt_remark.append("( " + itemsObj.getremark() + " )");
             txt_remark.setPadding(5, 5, 0, 0);
             //txt_remark.setTag(itemsObj.getcode());
             txt_remark.setTextAppearance(ctx, R.style.itemdetailbutton_menu_remarktext);
@@ -733,7 +709,7 @@ public class NewMenuActivity extends Activity {
 
         LinearLayout.LayoutParams priceparams = new LinearLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        priceparams.weight= 1.0f;
+        priceparams.weight = 1.0f;
 
         LinearLayout.LayoutParams ratinglayoutparams = new LinearLayout.LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -756,9 +732,9 @@ public class NewMenuActivity extends Activity {
         txtdescription.setSingleLine(true);// comment
         txtdescription.setGravity(Gravity.LEFT);// org Left
 
-        deslayout.addView(txtdescription,desparams);
+        deslayout.addView(txtdescription, desparams);
 
-        if(!dbhelper.use_foodtruck(dbhelper.getwaiterid())) {
+        if (!dbhelper.use_foodtruck(dbhelper.getwaiterid())) {
 
             //added by MPPA [28-01-2021]
             ImageView star = new ImageView(ctx);
@@ -768,6 +744,7 @@ public class NewMenuActivity extends Activity {
             TextView txtrating = new TextView(ctx);
             double rating = Double.parseDouble(itemsObj.getItemrating());
             int ratingcount = Integer.parseInt(itemsObj.getRatingcount());
+            ratingcount = ratingcount == 0 ? 1 : ratingcount;
             double rate = rating / ratingcount;
             txtrating.setText(String.valueOf(rate).substring(0, 3));
             txtrating.setGravity(Gravity.RIGHT);
@@ -794,8 +771,7 @@ public class NewMenuActivity extends Activity {
             ratinglayout.addView(star);
             ratinglayout.addView(txtrating);
             deslayout.addView(ratinglayout, ratinglayoutparams);
-        }
-        else{
+        } else {
 
             TextView txtprice = new TextView(ctx);
             double price = Double.parseDouble(itemsObj.getsale_price());
@@ -852,8 +828,9 @@ public class NewMenuActivity extends Activity {
 //        }
         final String dataurl = new DatabaseHelper(this).getServiceURL();
         Picasso.get().load(dataurl + "/Data/GetImage?usr_code="
-                        + itemsObj.getusr_code().trim())
+                + itemsObj.getusr_code().trim())// + "&rdn=" + new Random().nextInt())
                 .placeholder(R.drawable.default_menuimage)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .error(R.drawable.default_menuimage)
                 .into(image);
         image.setScaleType(ScaleType.CENTER_CROP);
@@ -977,7 +954,7 @@ public class NewMenuActivity extends Activity {
 
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(dbhelper.isSoldOutItem(itemsObj.getcode())){
+                if (dbhelper.isSoldOutItem(itemsObj.getcode())) {
                     AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
                     alertDialog.setTitle("Warning");
                     alertDialog.setMessage("This item is sold out!");
@@ -987,8 +964,7 @@ public class NewMenuActivity extends Activity {
                         }
                     });
                     alertDialog.show();
-                }
-                else {
+                } else {
                     TextView txtitem = (TextView) deslayout.getChildAt(0);
                     itemdetail_dialog(txtitem.getTag().toString());
                 }
@@ -1286,7 +1262,7 @@ public class NewMenuActivity extends Activity {
             }
         });
 
-        if(!dbhelper.use_foodtruck(dbhelper.getwaiterid())){
+        if (!dbhelper.use_foodtruck(dbhelper.getwaiterid())) {
             itemrating.setVisibility(View.VISIBLE);
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 public void onDismiss(final DialogInterface arg0) {
@@ -1296,14 +1272,13 @@ public class NewMenuActivity extends Activity {
 //                    rate += (Double.parseDouble(String.valueOf(itemrating.getRating())));
 //                    dbhelper.updateItemrating(code, rate);
 //                    // bind all category buttons and items
-                    if(isRate[0]) {
+                    if (isRate[0]) {
                         BindCategoryButtons();
                     }
 
                 }
             });
-        }
-        else{
+        } else {
             itemrating.setVisibility(View.GONE);
         }
 

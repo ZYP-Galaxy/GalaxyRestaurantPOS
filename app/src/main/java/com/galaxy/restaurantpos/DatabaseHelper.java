@@ -1,15 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +9,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import me.myatminsoe.mdetect.MDetect;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import me.myatminsoe.mdetect.Rabbit;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -3966,8 +3965,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     tablesobj.setclassname(cursor.getString(13));
                     tablesobj.setcolorRGB(cursor.getString(16));
                     tablesobj.setitemcolorRGB(cursor.getString(23));
-                    tablesobj.setphoto(getItemPhotoByUserCode(tablesobj
-                            .getusr_code()));
+                    tablesobj.setphoto(getItemPhotoByUserCode(tablesobj.getusr_code()));
                     tablesobj.setdescription2(cursor.getString(28));
                     tablesobj.setdescription3(cursor.getString(29));
                     tablesobj.setOrg_curr(cursor.getString(32));//added WHM [2020-05-27] currency

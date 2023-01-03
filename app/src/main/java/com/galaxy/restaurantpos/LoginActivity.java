@@ -1,22 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -34,15 +17,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-
 import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
@@ -71,12 +52,26 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.location.Location;
-import android.location.LocationManager;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import me.myatminsoe.mdetect.MDetect;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class LoginActivity extends Activity {
 
@@ -179,7 +174,7 @@ public class LoginActivity extends Activity {
 
         //Added by KLM to unique Device id 25102022
 
-        if (deviceid.getString("deviceid","empty").equals("empty")) {
+        if (deviceid.getString("deviceid", "empty").equals("empty")) {
             checkPermissions();
 
         }
@@ -965,7 +960,7 @@ public class LoginActivity extends Activity {
         JSONObject jsonobj = new JSONObject();
         //Added by KLM to unique Device id 25102022
 
-        if(deviceid.getString("deviceid","empty").equals("empty")){
+        if (deviceid.getString("deviceid", "empty").equals("empty")) {
 
             if (GlobalClass.Identifier.isEmpty()) {
 
@@ -1010,7 +1005,7 @@ public class LoginActivity extends Activity {
         }
 
 
-        jsonobj.put("DeviceID", deviceid.getString("deviceid","empty"));
+        jsonobj.put("DeviceID", deviceid.getString("deviceid", "empty"));
         jsonobj.put("DeviceBuildNumber", Build.DISPLAY);
         jsonobj.put("DeviceName", DeviceName);
 
@@ -1060,7 +1055,7 @@ public class LoginActivity extends Activity {
             JSONArray jsonmessage = jsonclass.getJson(new DatabaseHelper(this)
                     .getServiceURL()
                     + "/Data/UnRegister?DeviceID="
-                    + java.net.URLEncoder.encode(deviceid.getString("deviceid","empty")));
+                    + java.net.URLEncoder.encode(deviceid.getString("deviceid", "empty")));
 
             if (jsonmessage.length() > 0) {
                 if (Integer.parseInt(jsonmessage.get(0).toString()) == 0) {
@@ -1124,8 +1119,7 @@ public class LoginActivity extends Activity {
                     if (dbhelper.getLastLoadingTimeLog().equals("")) // first time
                     {
                         for (int i = 1; i <= Integer.parseInt(ItemCount.trim()); i++) {
-                            dbhelper.LoadItemFirstTime(dataurl,
-                                    Integer.toString(i));
+                            dbhelper.LoadItemFirstTime(dataurl, Integer.toString(i));
                             progressBarStatus += 1;
                             progressBarHandler.post(new Runnable() {
                                 public void run() {
@@ -1136,8 +1130,7 @@ public class LoginActivity extends Activity {
 
                         for (int j = 1; j <= Integer.parseInt(ModifierItemCount
                                 .trim()); j++) {
-                            dbhelper.LoadModifiedItemFirstTime(dataurl,
-                                    Integer.toString(j));
+                            dbhelper.LoadModifiedItemFirstTime(dataurl, Integer.toString(j));
                             progressBarStatus += 1;
                             progressBarHandler.post(new Runnable() {
                                 public void run() {
@@ -1145,6 +1138,7 @@ public class LoginActivity extends Activity {
                                 }
                             });
                         }
+
                     } else {
                         dbhelper.LoadItemSecondTime(dataurl);
                         progressBarStatus += Integer.parseInt(ItemCount.trim());
@@ -1824,11 +1818,11 @@ public class LoginActivity extends Activity {
             //added by ZYP for already login user
             String user = "";
             final String dataurl = new DatabaseHelper(this).getServiceURL();
-            user = dbhelper.getLoginUser(String.valueOf(pos),deviceid.getString("deviceid","empty"));//added Device name by KLM to avoid duplicate login 29122022
+            user = dbhelper.getLoginUser(String.valueOf(pos), deviceid.getString("deviceid", "empty"));//added Device name by KLM to avoid duplicate login 29122022
 
-            if(!user.equals("")) {
+            if (!user.equals("")) {
 
-                showAlertDialog(this, "Warring!!","User already login!" , false);
+                showAlertDialog(this, "Warring!!", "User already login!", false);
                 //Toast.makeText(this, "User already login!", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -1859,7 +1853,7 @@ public class LoginActivity extends Activity {
                         String jsonmessage = jsonclass
                                 .getString(new DatabaseHelper(this).getServiceURL()
                                         + "/Data/CheckRegistration?DeviceID="
-                                        + java.net.URLEncoder.encode(deviceid.getString("deviceid","empty")));
+                                        + java.net.URLEncoder.encode(deviceid.getString("deviceid", "empty")));
 
                         if (jsonmessage.trim().equals("True")) {
                             ((TextView) findViewById(R.id.txtpassword)).setText("");
@@ -1869,7 +1863,7 @@ public class LoginActivity extends Activity {
                             JSONObject jsonobjlogin = new JSONObject();
                             //sale_head_main
                             try {
-                                jsonobjlogin.put("DeviceID", deviceid.getString("deviceid","empty"));
+                                jsonobjlogin.put("DeviceID", deviceid.getString("deviceid", "empty"));
                             } catch (JSONException e1) {
                                 // TODO Auto-generated catch block
                                 e1.printStackTrace();
@@ -1901,7 +1895,7 @@ public class LoginActivity extends Activity {
                             dbhelper.LoadSpecialMenu_code(daurl);
                             // /////////////
 
-                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString(),deviceid.getString("deviceid","empty"));
+                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString(), deviceid.getString("deviceid", "empty"));
                             if (saveUser.trim().equals("successful")) {
                                 String def_locationID = Json_class.getString_LOCID(dbhelper
                                         .getServiceURL()
