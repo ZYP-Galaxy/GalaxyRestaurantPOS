@@ -4555,11 +4555,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             .getString(0)));
                     customerobj.setcustomercode(cursor.getString(1));
                     customerobj.setcustomername(cursor.getString(2));
+
                     // Adding tableobj to list
                     list.add(customerobj);
                 } while (cursor.moveToNext());
             }
             // return contact list
+
             return list;
         } finally {
             cursor.close();
@@ -4574,6 +4576,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(String.format(sSql, colcustomerid,
                 colcustomercode, colcustomername, CustomerTable, colcustomerid,
                 CustomerID, colcustomername), null);
+
         try {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
@@ -6951,7 +6954,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Added by KLM for UniZawgyi Auto Detect 23022022
         try {
             if (!LoginActivity.isUnicode) {
-                itemjsonarray = new JSONArray(Rabbit.uni2zg(itemjsonarray.toString()));
+                itemjsonarray = new JSONArray(Rabbit. uni2zg(itemjsonarray.toString()));
             }
 
         } catch (JSONException e) {

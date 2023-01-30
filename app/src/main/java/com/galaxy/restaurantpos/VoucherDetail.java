@@ -374,7 +374,9 @@ public class VoucherDetail extends Activity {
         final DatabaseHelper dbhelper = new DatabaseHelper(this);
 
         saleobj = dbhelper.getSaledataBySaleID(tranid);
-        txtinvoiceno.setText(saleobj.getRef_no());
+        //txtinvoiceno.setText(saleobj.getRef_no());
+        //added by kno (25-01-2023) for QA-2301190
+        txtinvoiceno.setText(saleobj.getinvoiceno());
         txtinvoiceno.setTag(tranid);
 
         if (GlobalClass.use_foodtruck) {

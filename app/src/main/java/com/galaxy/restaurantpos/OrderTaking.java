@@ -678,6 +678,117 @@ public class OrderTaking extends Activity {
 
     }
 
+    //Added by KNO (26-01-2023)
+    @Override
+    public void onBackPressed() {
+        if (GlobalClass.CheckConnection(ctx)) {
+
+            boolean needsubmit = false;
+            LinearLayout itemlistlayout = (LinearLayout) findViewById(R.id.itemlistlayout); // added by WaiWL on 12/08/2015
+            LinearLayout valueitemlistlayout = (LinearLayout) findViewById(R.id.valueitem_itemlistlayout);
+
+            for (int i = 0; i < valueitemlistlayout.getChildCount(); i++) {
+                LinearLayout linearlayout = (LinearLayout) valueitemlistlayout.getChildAt(i);
+                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
+                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
+                if (!txtsrrow.getTag().toString().contains("P")) {
+                    needsubmit = true;
+                }
+            }
+            // /////////////////////////
+
+            for (int i = 0; i < itemlistlayout.getChildCount(); i++) {
+                LinearLayout linearlayout = (LinearLayout) itemlistlayout.getChildAt(i);
+                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
+                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
+                if (!txtsrrow.getTag().toString().contains("P")) {
+                    needsubmit = true;
+                }
+            }
+
+            if (initialitemcount < itemlistlayout.getChildCount() || needsubmit == true) {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("Warning!");
+                alertDialog.setMessage("Are you sure?\nYou've ordered some items, not submited yet!");
+                alertDialog.setIcon(0);
+                final Context ctx = this;
+                // Setting OK Button
+                alertDialog.setButton2("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // TODO Auto-generated method stub
+
+                                dbhelper.DeleteSaleDataBySaleID(saleid);
+                                dbhelper.DeleteSaleItemDataBySaleID(saleid);
+
+                                //added by ZYP [26-10-2020]
+                                if (GlobalClass.use_foodtruck) {
+                                    Intent intent = new Intent(ctx, MainScreen.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(ctx, TableScreenActivity.class);
+                                    startActivity(intent);
+                                }
+
+                                if (GlobalClass.CheckConnection(ctx)) {
+                                    Json_class jsonclass = new Json_class();
+                                    jsonclass.getString(dbhelper
+                                            .getServiceURL()
+                                            + "/Data/ReleaseTable?tableid="
+                                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
+                                            + "&userid="
+                                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
+                                }
+
+                                //added WHM [2020-05-13]
+                                if (dbhelper.use_deliverymanagement() == true) {
+                                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
+                                }
+
+                                finish();
+                            }
+                        });
+                alertDialog.setButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                            }
+                        });
+                alertDialog.show();
+
+            } else {
+                //added by ZYP [26-10-2020]
+                if (GlobalClass.use_foodtruck) {
+                    Intent intent = new Intent(ctx, MainScreen.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ctx, TableScreenActivity.class);
+                    startActivity(intent);
+                }
+
+                if (GlobalClass.CheckConnection(ctx)) {
+                    Json_class jsonclass = new Json_class();
+                    jsonclass.getString(dbhelper
+                            .getServiceURL()
+                            + "/Data/ReleaseTable?tableid="
+                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
+                            + "&userid="
+                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
+                }
+                //added WHM [2020-05-13]
+                if (dbhelper.use_deliverymanagement() == true) {
+                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
+                }
+                this.finish();
+            }
+            //return true;
+        } else {
+            ConnectionStatus();
+            showAlertDialog(ctx, "Warning!", "No connection with Server.", false);
+        }
+    }
+
     private void GetData(final List<Table_Name> tablename) {
         saleid = Integer.toString(tablename.get(0).getTranid());
         dbhelper.LoadSaleHeader(new DatabaseHelper(ctx).getServiceURL(),
@@ -1188,8 +1299,9 @@ public class OrderTaking extends Activity {
                 txtcustcount.setVisibility(View.INVISIBLE);
                 ((TextView) findViewById(R.id.txttext)).setVisibility(View.INVISIBLE);
             } else {
-                txtcustcount.setText(saleobjlist.get(0).getcustcount() == null ? "1" : saleobjlist.get(0).getcustcount());
-
+                //modified by KNO 26-01-2023 (QA-2301199)
+                //txtcustcount.setText(saleobjlist.get(0).getcustcount() == null ? "1" : saleobjlist.get(0).getcustcount());
+                txtcustcount.setText((saleobjlist.get(0).getcustcount()).equals("null") ? "1" : saleobjlist.get(0).getcustcount());
                 //region bind delivery_type
                 deliverytype_id = sale_head_deliverytype_id = saleobjlist.get(0).getDelivery_type();
                 spinner_deliverytype.setSelection(saleobjlist.get(0).getDelivery_type());//added WHM [2020-05-08]
@@ -1587,119 +1699,121 @@ public class OrderTaking extends Activity {
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK && GlobalClass.CheckConnection(ctx)) {
-
-            boolean needsubmit = false;
-            LinearLayout itemlistlayout = (LinearLayout) findViewById(R.id.itemlistlayout); // added by WaiWL on 12/08/2015
-            LinearLayout valueitemlistlayout = (LinearLayout) findViewById(R.id.valueitem_itemlistlayout);
-
-            for (int i = 0; i < valueitemlistlayout.getChildCount(); i++) {
-                LinearLayout linearlayout = (LinearLayout) valueitemlistlayout.getChildAt(i);
-                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
-                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
-                if (!txtsrrow.getTag().toString().contains("P")) {
-                    needsubmit = true;
-                }
-            }
-            // /////////////////////////
-
-            for (int i = 0; i < itemlistlayout.getChildCount(); i++) {
-                LinearLayout linearlayout = (LinearLayout) itemlistlayout.getChildAt(i);
-                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
-                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
-                if (!txtsrrow.getTag().toString().contains("P")) {
-                    needsubmit = true;
-                }
-            }
-
-            if (initialitemcount < itemlistlayout.getChildCount() || needsubmit == true) {
-                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-                alertDialog.setTitle("Warning!");
-                alertDialog.setMessage("Are you sure?\nYou've ordered some items, not submited yet!");
-                alertDialog.setIcon(0);
-                final Context ctx = this;
-                // Setting OK Button
-                alertDialog.setButton2("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                // TODO Auto-generated method stub
-
-                                dbhelper.DeleteSaleDataBySaleID(saleid);
-                                dbhelper.DeleteSaleItemDataBySaleID(saleid);
-
-                                //added by ZYP [26-10-2020]
-                                if (GlobalClass.use_foodtruck) {
-                                    Intent intent = new Intent(ctx, MainScreen.class);
-                                    startActivity(intent);
-                                } else {
-                                    Intent intent = new Intent(ctx, TableScreenActivity.class);
-                                    startActivity(intent);
-                                }
-
-                                if (GlobalClass.CheckConnection(ctx)) {
-                                    Json_class jsonclass = new Json_class();
-                                    jsonclass.getString(dbhelper
-                                            .getServiceURL()
-                                            + "/Data/ReleaseTable?tableid="
-                                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
-                                            + "&userid="
-                                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
-                                }
-
-                                //added WHM [2020-05-13]
-                                if (dbhelper.use_deliverymanagement() == true) {
-                                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
-                                }
-
-                                finish();
-                            }
-                        });
-                alertDialog.setButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                            }
-                        });
-                alertDialog.show();
-
-            } else {
-                //added by ZYP [26-10-2020]
-                if (GlobalClass.use_foodtruck) {
-                    Intent intent = new Intent(ctx, MainScreen.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(ctx, TableScreenActivity.class);
-                    startActivity(intent);
-                }
-
-                if (GlobalClass.CheckConnection(ctx)) {
-                    Json_class jsonclass = new Json_class();
-                    jsonclass.getString(dbhelper
-                            .getServiceURL()
-                            + "/Data/ReleaseTable?tableid="
-                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
-                            + "&userid="
-                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
-                }
-                //added WHM [2020-05-13]
-                if (dbhelper.use_deliverymanagement() == true) {
-                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
-                }
-                this.finish();
-            }
-            return true;
-        } else {
-            ConnectionStatus();
-            showAlertDialog(ctx, "Warning!", "No connection with Server.", false);
-        }
-        // ConnectionStatus();
-        return super.onKeyDown(keyCode, event);
-
-    }
+//commented by KNO (26-01-2023) to add onbackpressed
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//
+//        if (keyCode == KeyEvent.KEYCODE_BACK && GlobalClass.CheckConnection(ctx)) {
+//
+//            boolean needsubmit = false;
+//            LinearLayout itemlistlayout = (LinearLayout) findViewById(R.id.itemlistlayout); // added by WaiWL on 12/08/2015
+//            LinearLayout valueitemlistlayout = (LinearLayout) findViewById(R.id.valueitem_itemlistlayout);
+//
+//            for (int i = 0; i < valueitemlistlayout.getChildCount(); i++) {
+//                LinearLayout linearlayout = (LinearLayout) valueitemlistlayout.getChildAt(i);
+//                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
+//                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
+//                if (!txtsrrow.getTag().toString().contains("P")) {
+//                    needsubmit = true;
+//                }
+//            }
+//            // /////////////////////////
+//
+//            for (int i = 0; i < itemlistlayout.getChildCount(); i++) {
+//                LinearLayout linearlayout = (LinearLayout) itemlistlayout.getChildAt(i);
+//                LinearLayout mainrow = (LinearLayout) linearlayout.getChildAt(0);// Get main item row
+//                TextView txtsrrow = (TextView) mainrow.getChildAt(0);
+//                if (!txtsrrow.getTag().toString().contains("P")) {
+//                    needsubmit = true;
+//                }
+//            }
+//
+//            if (initialitemcount < itemlistlayout.getChildCount() || needsubmit == true) {
+//                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//                alertDialog.setTitle("Warning!");
+//                alertDialog.setMessage("Are you sure?\nYou've ordered some items, not submited yet!");
+//                alertDialog.setIcon(0);
+//                final Context ctx = this;
+//                // Setting OK Button
+//                alertDialog.setButton2("OK",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog,
+//                                                int which) {
+//                                // TODO Auto-generated method stub
+//
+//                                dbhelper.DeleteSaleDataBySaleID(saleid);
+//                                dbhelper.DeleteSaleItemDataBySaleID(saleid);
+//
+//                                //added by ZYP [26-10-2020]
+//                                if (GlobalClass.use_foodtruck) {
+//                                    Intent intent = new Intent(ctx, MainScreen.class);
+//                                    startActivity(intent);
+//                                } else {
+//                                    Intent intent = new Intent(ctx, TableScreenActivity.class);
+//                                    startActivity(intent);
+//                                }
+//
+//                                if (GlobalClass.CheckConnection(ctx)) {
+//                                    Json_class jsonclass = new Json_class();
+//                                    jsonclass.getString(dbhelper
+//                                            .getServiceURL()
+//                                            + "/Data/ReleaseTable?tableid="
+//                                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
+//                                            + "&userid="
+//                                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
+//                                }
+//
+//                                //added WHM [2020-05-13]
+//                                if (dbhelper.use_deliverymanagement() == true) {
+//                                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
+//                                }
+//
+//                                finish();
+//                            }
+//                        });
+//                alertDialog.setButton("Cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog,
+//                                                int which) {
+//                            }
+//                        });
+//                alertDialog.show();
+//
+//            } else {
+//                //added by ZYP [26-10-2020]
+//                if (GlobalClass.use_foodtruck) {
+//                    Intent intent = new Intent(ctx, MainScreen.class);
+//                    startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(ctx, TableScreenActivity.class);
+//                    startActivity(intent);
+//                }
+//
+//                if (GlobalClass.CheckConnection(ctx)) {
+//                    Json_class jsonclass = new Json_class();
+//                    jsonclass.getString(dbhelper
+//                            .getServiceURL()
+//                            + "/Data/ReleaseTable?tableid="
+//                            + java.net.URLEncoder.encode(tableID.equals("Parcel") ? "0" : tableID)//added by ZYP [21-10-2020]
+//                            + "&userid="
+//                            + java.net.URLEncoder.encode(dbhelper.getwaiterid()));
+//                }
+//                //added WHM [2020-05-13]
+//                if (dbhelper.use_deliverymanagement() == true) {
+//                    dbhelper.ClearTable("Delivery_Entry_Detail_Tmp");
+//                }
+//                this.finish();
+//            }
+//            return true;
+//        } else {
+//            ConnectionStatus();
+//            if (!GlobalClass.CheckConnection(ctx))
+//                showAlertDialog(ctx, "Warning!", "No connection with Server.", false);
+//        }
+//        // ConnectionStatus();
+//        return super.onKeyDown(keyCode, event);
+//
+//    }
 
     /*
      * public void onWindowFocusChanged(boolean hasFocus) {
@@ -7276,7 +7390,7 @@ public class OrderTaking extends Activity {
             notejsonarray.put(jsonobj);
             Json_class jsonclass = new Json_class();
 
-//            JSONArray jsonmessage = jsonclass.POST(
+//            JSONArray jsonmessage = jsonclass.POST(x
 //                    new DatabaseHelper(this).getServiceURL()
 //                            + "/Data/InsertCustomer",
 //                    notejsonarray);
@@ -7286,7 +7400,7 @@ public class OrderTaking extends Activity {
                 jsonmessage = jsonclass.POST(
                         new DatabaseHelper(this).getServiceURL()
                                 + "/Data/InsertCustomer",
-                        !LoginActivity.isUnicode ? new JSONArray(Rabbit.uni2zg(notejsonarray.toString())) : notejsonarray);
+                        !LoginActivity.isUnicode ? new JSONArray(Rabbit.zg2uni(notejsonarray.toString())) : notejsonarray);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -10402,7 +10516,7 @@ public class OrderTaking extends Activity {
         txtitem.setTypeface(font);
         txtitem.setText(itemname.getText().toString());
         txtitem.setTag(itemname.getTag().toString());
-
+        qtytmp = Double.toString(Double.parseDouble(txtqty.getText().toString()));
         final List<UnitCodeObj> unitcodeobjlist = dbhelper
                 .getunitcodebyitemid(itemname.getTag().toString());
 

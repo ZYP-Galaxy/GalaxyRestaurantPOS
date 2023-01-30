@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.ProgressDialog;
