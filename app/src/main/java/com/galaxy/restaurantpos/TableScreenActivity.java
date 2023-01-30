@@ -2,13 +2,6 @@
 package com.galaxy.restaurantpos;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,9 +22,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-
-import androidx.core.app.NotificationCompat;
-
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -52,6 +42,15 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 public class TableScreenActivity extends Activity implements OnClickListener {
 
@@ -96,10 +95,6 @@ public class TableScreenActivity extends Activity implements OnClickListener {
         //Tablelayout= (LinearLayout)findViewById(R.id.lintablelayout);        
 //		LoginActivity.isUnicode=dbhelper.isUnicode();
         //font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
-        if (LoginActivity.isUnicode)        //added by ZYP 17-12-2019
-            font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
-        else
-            font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
 
         //added by EKK on 12-12-2019
         if (GlobalClass.CheckConnection(ctx)) {

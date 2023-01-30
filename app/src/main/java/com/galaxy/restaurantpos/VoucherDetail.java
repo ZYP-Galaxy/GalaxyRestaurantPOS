@@ -87,10 +87,10 @@ public class VoucherDetail extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (LoginActivity.isUnicode)
-            font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
-        else
-            font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
+//        if (LoginActivity.isUnicode)
+//            font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
+//        else
+//            font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
 
         // Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);

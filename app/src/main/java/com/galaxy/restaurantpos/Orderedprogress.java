@@ -1,7 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,6 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Orderedprogress extends Activity {
 	ListView listorder;
@@ -50,11 +51,6 @@ public class Orderedprogress extends Activity {
 		setContentView(R.layout.activity_orderedprogress);
 
 		ctx = this;
-		//font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
-		if(!LoginActivity.isUnicode)
-			font = Typeface.createFromAsset(getAssets(), "fonts/Pyidaungsu.ttf");
-		else
-			font = Typeface.createFromAsset(getAssets(), "fonts/Zawgyi-One.ttf");
 
 		((LinearLayout)findViewById(R.id.butdinein)).setSelected(true);
 		((LinearLayout)findViewById(R.id.butparcel)).setSelected(false);

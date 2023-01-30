@@ -1,7 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -9,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
  
 public class SetMenuCustomListViewAdapter extends ArrayAdapter<SetmenuItem> { 
     Context context; 
@@ -44,9 +43,8 @@ public class SetMenuCustomListViewAdapter extends ArrayAdapter<SetmenuItem> {
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
-        
-        font = Typeface.createFromAsset(this.context.getAssets(), "fonts/Zawgyi-One.ttf");
-        
+
+
         holder.txttranid.setText(Integer.toString(rowItem.gettranid()));
         holder.txtheader.setText(rowItem.getheader());
         holder.txtqty.setText(rowItem.getqty()); 

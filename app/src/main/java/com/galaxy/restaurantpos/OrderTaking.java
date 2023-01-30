@@ -6865,7 +6865,7 @@ public class OrderTaking extends Activity {
                     params.weight = 1;
                     params.setMargins(5, 5, 5, 5);
                     row.setWeightSum(3);
-                    row.setGravity(Gravity.CENTER);
+                    row.setGravity(Gravity.CENTER_VERTICAL);
                     row.setOrientation(LinearLayout.HORIZONTAL);
                     row.addView(CreateItemRemark(ItemRemarklist.get(i), dialog, txtremark), params);
 
