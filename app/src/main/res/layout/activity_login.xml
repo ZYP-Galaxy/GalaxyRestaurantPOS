@@ -180,6 +180,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:fontFamily="serif"
+        android:padding="5dp"
+        android:text="@string/version_no"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
 </LinearLayout>
 
 

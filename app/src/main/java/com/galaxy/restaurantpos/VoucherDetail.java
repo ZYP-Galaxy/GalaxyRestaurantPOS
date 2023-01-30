@@ -119,7 +119,7 @@ public class VoucherDetail extends Activity {
         dbhelper = new DatabaseHelper(ctx);//added WHM [2019-08-12]
         chkHideComName = (CheckBox) findViewById(R.id.chkHideComName);
         Button btnSubmit = (Button) findViewById(R.id.butSubmit);
-
+        btnSubmit.setVisibility(View.INVISIBLE);
         if (dbhelper.Allow_btnPrintBill(dbhelper.getwaiterid()) == true) {
             btnSubmit.setVisibility(View.VISIBLE);
             ((Spinner) findViewById(R.id.cashierPrinters)).setVisibility(View.VISIBLE);

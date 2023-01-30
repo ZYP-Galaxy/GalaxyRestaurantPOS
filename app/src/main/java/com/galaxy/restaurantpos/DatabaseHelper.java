@@ -1,15 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,7 +9,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import me.myatminsoe.mdetect.MDetect;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import me.myatminsoe.mdetect.Rabbit;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -3966,8 +3965,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     tablesobj.setclassname(cursor.getString(13));
                     tablesobj.setcolorRGB(cursor.getString(16));
                     tablesobj.setitemcolorRGB(cursor.getString(23));
-                    tablesobj.setphoto(getItemPhotoByUserCode(tablesobj
-                            .getusr_code()));
+                    tablesobj.setphoto(getItemPhotoByUserCode(tablesobj.getusr_code()));
                     tablesobj.setdescription2(cursor.getString(28));
                     tablesobj.setdescription3(cursor.getString(29));
                     tablesobj.setOrg_curr(cursor.getString(32));//added WHM [2020-05-27] currency
@@ -6524,22 +6522,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //added by ZYP [06-02-2020]
-    public String SaveLoginUser(String userId) {
-
+    public String SaveLoginUser(String userId,String devicename) {
         String jsonmsg = Json_class.getString(getServiceURL()
                 + "/Data/SaveLoginUser?userid="
-                + java.net.URLEncoder.encode(userId));
+                + java.net.URLEncoder.encode(userId)
+                +"&devicename="
+                + java.net.URLEncoder.encode(devicename));
 
         return jsonmsg;
+
     }
 
     //added by ZYP [06-02-2020]
-    public String getLoginUser(String userId) {
+    public String getLoginUser(String userId,String devicename) {
 
         String jsonmsg = Json_class.getString(getServiceURL()
                 + "/Data/GetLoginUser?userid="
-                + java.net.URLEncoder.encode(userId));
-
+                + java.net.URLEncoder.encode(userId)
+                +"&devicename="//added Device name by KLM to avoid duplicate login 29122022
+                + java.net.URLEncoder.encode(devicename));
         return jsonmsg;
 
 
@@ -6724,7 +6725,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void SetLoadedDate(String Datalink) {
         url = Datalink;
         String result = Json_class.getString(url + "/Data/SetLoadedDate?DeviceID="
-                + java.net.URLEncoder.encode(GlobalClass.GetTabletID()) + "&DeviceName=" + java.net.URLEncoder.encode(getDevice_Name()));
+                + java.net.URLEncoder.encode(LoginActivity.deviceid.getString("deviceid","empty")) + "&DeviceName=" + java.net.URLEncoder.encode(getDevice_Name()));
 
     }
 
@@ -7693,7 +7694,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<SplitedVouchers> list = new ArrayList<SplitedVouchers>();
 
         String sSql = "SELECT  tranid,docid,net_amount,qty FROM %s";
-
         Cursor cursor = db.rawQuery(String.format(sSql, SplitedVouchers_table), null);
 
         try {
@@ -8514,7 +8514,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
-                    if ((cursor.getString(0).equals("0"))) {
+                    if (cursor.getCount() > 0 && (cursor.getString(0).equals("0"))) {
                         return false;
                     } else
                         return true;

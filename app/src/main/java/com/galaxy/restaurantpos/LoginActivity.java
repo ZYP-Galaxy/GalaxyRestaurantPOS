@@ -1,22 +1,5 @@
 package com.galaxy.restaurantpos;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -28,22 +11,22 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-
 import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -69,12 +52,26 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.location.Location;
-import android.location.LocationManager;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import me.myatminsoe.mdetect.MDetect;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class LoginActivity extends Activity {
 
@@ -98,6 +95,7 @@ public class LoginActivity extends Activity {
     //public static Boolean isUnicode;
     LocationManager locationManager;
     String latitude, longitude;
+    public static SharedPreferences deviceid;
 
     @TargetApi(11)
     @Override
@@ -110,7 +108,7 @@ public class LoginActivity extends Activity {
         // Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        deviceid = getSharedPreferences("deviceid", MODE_PRIVATE);
         if (android.os.Build.VERSION.SDK_INT > 9) {// for check connection
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
@@ -174,7 +172,14 @@ public class LoginActivity extends Activity {
             killProcess(this.getPackageName());
         }
 
-        String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
+        //Added by KLM to unique Device id 25102022
+
+        if (deviceid.getString("deviceid", "empty").equals("empty")) {
+            checkPermissions();
+
+        }
+
+        /*String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (null != tm) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -194,7 +199,7 @@ public class LoginActivity extends Activity {
         }
         GlobalClass.Identifier = deviceUniqueIdentifier;
 
-        CheckTrialDate();
+        CheckTrialDate();*/
 
         /*
          * int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION ;
@@ -202,6 +207,23 @@ public class LoginActivity extends Activity {
          */
         // Toast.makeText(this,MDetect.INSTANCE.isUnicode()?"မင်္ဂလာပါ": Rabbit.uni2zg("မင်္ဂလာပါ"),Toast.LENGTH_SHORT).show();
     }
+
+    private void checkPermissions() {
+        int permission1 = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        //int permission2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN);
+        if (permission1 != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    1
+            );
+        }
+    }
+
+    public static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_PHONE_STATE,
+    };
 
     public void btnNo_OnClick(View v) {
 
@@ -936,18 +958,54 @@ public class LoginActivity extends Activity {
 
         JSONArray salejsonarray = new JSONArray();
         JSONObject jsonobj = new JSONObject();
-        // sale_head_main
-//        String deviceUniqueIdentifier = null; ////modified by ZYP [19-06-2020] for Device ID unique
-//        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//        if (null != tm) {
-//            deviceUniqueIdentifier = tm.getDeviceId();
-//        }
-//        if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
-//            deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-//        }
-//        GlobalClass.Identifier = deviceUniqueIdentifier;
+        //Added by KLM to unique Device id 25102022
 
-        jsonobj.put("DeviceID", GlobalClass.GetTabletID());
+        if (deviceid.getString("deviceid", "empty").equals("empty")) {
+
+            if (GlobalClass.Identifier.isEmpty()) {
+
+                String deviceUniqueIdentifier = null; ////modified by ZYP [22-09-2020] for Device ID unique
+                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                if (tm != null) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    try {//added try catch by KLM to avoid security expection occur above android 10 26102022
+                        deviceUniqueIdentifier = tm.getDeviceId();
+                    } catch (Exception ex) {
+                        if (deviceUniqueIdentifier == null || deviceUniqueIdentifier.length() == 0) {
+                            deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                        }
+
+                    }
+
+                }
+                if (null == deviceUniqueIdentifier || 0 == deviceUniqueIdentifier.length()) {
+                    deviceUniqueIdentifier = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                }
+                GlobalClass.Identifier = deviceUniqueIdentifier;
+
+            }
+
+            Log.i("LoginActivity", GlobalClass.Identifier);
+            SharedPreferences.Editor editor = deviceid.edit();
+            editor.remove("deviceid");
+            editor.commit();
+
+            editor = deviceid.edit();
+            editor.putString("deviceid", GlobalClass.GetTabletID());
+            editor.commit();
+        }
+
+
+        jsonobj.put("DeviceID", deviceid.getString("deviceid", "empty"));
         jsonobj.put("DeviceBuildNumber", Build.DISPLAY);
         jsonobj.put("DeviceName", DeviceName);
 
@@ -997,7 +1055,7 @@ public class LoginActivity extends Activity {
             JSONArray jsonmessage = jsonclass.getJson(new DatabaseHelper(this)
                     .getServiceURL()
                     + "/Data/UnRegister?DeviceID="
-                    + java.net.URLEncoder.encode(GlobalClass.GetTabletID()));
+                    + java.net.URLEncoder.encode(deviceid.getString("deviceid", "empty")));
 
             if (jsonmessage.length() > 0) {
                 if (Integer.parseInt(jsonmessage.get(0).toString()) == 0) {
@@ -1061,8 +1119,7 @@ public class LoginActivity extends Activity {
                     if (dbhelper.getLastLoadingTimeLog().equals("")) // first time
                     {
                         for (int i = 1; i <= Integer.parseInt(ItemCount.trim()); i++) {
-                            dbhelper.LoadItemFirstTime(dataurl,
-                                    Integer.toString(i));
+                            dbhelper.LoadItemFirstTime(dataurl, Integer.toString(i));
                             progressBarStatus += 1;
                             progressBarHandler.post(new Runnable() {
                                 public void run() {
@@ -1073,8 +1130,7 @@ public class LoginActivity extends Activity {
 
                         for (int j = 1; j <= Integer.parseInt(ModifierItemCount
                                 .trim()); j++) {
-                            dbhelper.LoadModifiedItemFirstTime(dataurl,
-                                    Integer.toString(j));
+                            dbhelper.LoadModifiedItemFirstTime(dataurl, Integer.toString(j));
                             progressBarStatus += 1;
                             progressBarHandler.post(new Runnable() {
                                 public void run() {
@@ -1082,6 +1138,7 @@ public class LoginActivity extends Activity {
                                 }
                             });
                         }
+
                     } else {
                         dbhelper.LoadItemSecondTime(dataurl);
                         progressBarStatus += Integer.parseInt(ItemCount.trim());
@@ -1759,16 +1816,16 @@ public class LoginActivity extends Activity {
             pos = Integer.parseInt(txtUserName.getTag().toString());
 
             //added by ZYP for already login user
-//            String user = "";
-//            final String dataurl = new DatabaseHelper(this).getServiceURL();
-//            user = dbhelper.getLoginUser(String.valueOf(pos));
-//
-//            if(!user.equals("")) {
-//
-//                showAlertDialog(this, "Warring!!","User already login!" , false);
-//                //Toast.makeText(this, "User already login!", Toast.LENGTH_LONG).show();
-//                return;
-//            }
+            String user = "";
+            final String dataurl = new DatabaseHelper(this).getServiceURL();
+            user = dbhelper.getLoginUser(String.valueOf(pos), deviceid.getString("deviceid", "empty"));//added Device name by KLM to avoid duplicate login 29122022
+
+            if (!user.equals("")) {
+
+                showAlertDialog(this, "Warring!!", "User already login!", false);
+                //Toast.makeText(this, "User already login!", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             PosUser SelectedUserobj = dbhelper.getPosUserByUserID(pos);
             if (txtPassword.getText().toString().equals(SelectedUserobj.getPassword())) {
@@ -1796,7 +1853,7 @@ public class LoginActivity extends Activity {
                         String jsonmessage = jsonclass
                                 .getString(new DatabaseHelper(this).getServiceURL()
                                         + "/Data/CheckRegistration?DeviceID="
-                                        + java.net.URLEncoder.encode(GlobalClass.GetTabletID()));
+                                        + java.net.URLEncoder.encode(deviceid.getString("deviceid", "empty")));
 
                         if (jsonmessage.trim().equals("True")) {
                             ((TextView) findViewById(R.id.txtpassword)).setText("");
@@ -1806,7 +1863,7 @@ public class LoginActivity extends Activity {
                             JSONObject jsonobjlogin = new JSONObject();
                             //sale_head_main
                             try {
-                                jsonobjlogin.put("DeviceID", GlobalClass.GetTabletID());
+                                jsonobjlogin.put("DeviceID", deviceid.getString("deviceid", "empty"));
                             } catch (JSONException e1) {
                                 // TODO Auto-generated catch block
                                 e1.printStackTrace();
@@ -1838,7 +1895,7 @@ public class LoginActivity extends Activity {
                             dbhelper.LoadSpecialMenu_code(daurl);
                             // /////////////
 
-                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString());
+                            String saveUser = dbhelper.SaveLoginUser(SelectedUserobj.getUserId().toString(), deviceid.getString("deviceid", "empty"));
                             if (saveUser.trim().equals("successful")) {
                                 String def_locationID = Json_class.getString_LOCID(dbhelper
                                         .getServiceURL()
