@@ -30,7 +30,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -6860,10 +6859,14 @@ public class OrderTaking extends Activity {
 
                 for (int i = 0; i < ItemRemarklist.size(); i++) {
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            GlobalClass.getDPsize(233, this),
-                            GlobalClass.getDPsize(50, this));
-                    params.setMargins(3, 5, 0, 5);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,
+//                            GlobalClass.getDPsize(200, this),   //233
+                            ViewGroup.LayoutParams.WRAP_CONTENT);   //55
+                    params.weight = 1;
+                    params.setMargins(5, 5, 5, 5);
+                    row.setWeightSum(3);
+                    row.setGravity(Gravity.CENTER);
+                    row.setOrientation(LinearLayout.HORIZONTAL);
                     row.addView(CreateItemRemark(ItemRemarklist.get(i), dialog, txtremark), params);
 
 
@@ -7808,17 +7811,18 @@ public class OrderTaking extends Activity {
 
     private TextView CreateItemRemark(final ItemRemark IR, final Dialog dialog, final TextView txtremark) {
         TextView p1 = new TextView(this);
-        p1.setTypeface(font);
+//        p1.setTypeface(font);
 
         p1.setText(IR.getItemRemark());
         p1.setTag(IR.getID());
 
-        p1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        p1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         p1.setBackgroundResource(R.drawable.rounded_button);
         p1.setTextColor(Color.parseColor("#FFFFFF"));
         p1.setGravity(Gravity.CENTER);
-        p1.setHeight(45);
-        p1.setWidth(80);
+        p1.setMinLines(2);
+//        p1.setHeight(45);
+//        p1.setWidth(80);
 
         p1.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
