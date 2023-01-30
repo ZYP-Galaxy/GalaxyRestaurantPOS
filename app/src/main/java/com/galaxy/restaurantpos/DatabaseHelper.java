@@ -7691,7 +7691,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<SplitedVouchers> list = new ArrayList<SplitedVouchers>();
 
         String sSql = "SELECT  tranid,docid,net_amount,qty FROM %s";
-
         Cursor cursor = db.rawQuery(String.format(sSql, SplitedVouchers_table), null);
 
         try {
@@ -8512,7 +8511,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
-                    if ((cursor.getString(0).equals("0"))) {
+                    if (cursor.getCount() > 0 && (cursor.getString(0).equals("0"))) {
                         return false;
                     } else
                         return true;

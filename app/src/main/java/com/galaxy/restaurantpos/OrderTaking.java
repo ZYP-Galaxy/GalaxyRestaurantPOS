@@ -90,7 +90,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import me.myatminsoe.mdetect.MDetect;
 import me.myatminsoe.mdetect.Rabbit;
 
 
@@ -1103,8 +1102,7 @@ public class OrderTaking extends Activity {
                     level = (currentLevel * 100) / scale;
                 }
 
-                ((TextView) findViewById(R.id.txtbatterypercent)).setText(level
-                        + "%");
+                ((TextView) findViewById(R.id.txtbatterypercent)).setText(level + "%");
 
                 ImageView imgbattery = (ImageView) findViewById(R.id.imgbattery);
                 if (level > 100 - (100 / 7)) {
@@ -1463,7 +1461,8 @@ public class OrderTaking extends Activity {
             // endregion bind saleItemData
             CalculateTotal();
 
-        } else {
+        } //bind_item_data
+        else {
             // new voucher
 //            txtDocID.setText("docid");
 //            txtDocID.setTag(dbhelper.getwaiterid());
@@ -1486,7 +1485,9 @@ public class OrderTaking extends Activity {
             ((Button) findViewById(R.id.butbill)).setVisibility(View.GONE); //added by MPPA [11-06-2021]
 
             try {
-                GetTable(txtinvoiceno.getText().toString());
+                if (GlobalClass.use_foodtruck) {
+                    GetTable(txtinvoiceno.getText().toString());
+                }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -4340,7 +4341,7 @@ public class OrderTaking extends Activity {
                 Fire_withProgressbar();
                 break;
             case R.id.butsplitbill:
-                itemtransfer=false;//added by KLM to prevent display transfer while itemtransfer is true while clicking split bill 30112022
+                itemtransfer = false;//added by KLM to prevent display transfer while itemtransfer is true while clicking split bill 30112022
                 //added WHM [2020-05-14]
                 if (deliverytype_id != 0) {
                     showAlertDialogBox(ctx, "Warning!", "This voucher is delivery or self pickup voucher!", false);
@@ -8542,7 +8543,7 @@ public class OrderTaking extends Activity {
                                 jsonobj.put("printed", false);
                                 jsonobj.put("modifiedrowsr", saleitemobj.getmodifiedrowsr());
                                 jsonobj.put("unittype", saleitemobj.getunittype());
-                                String detremark = saleitemobj.getremark();
+                                String detremark = saleitemobj.getremark() == null ? "" : saleitemobj.getremark();
                                 if (!LoginActivity.isUnicode) {
                                     detremark = Rabbit.zg2uni(detremark);
                                 }

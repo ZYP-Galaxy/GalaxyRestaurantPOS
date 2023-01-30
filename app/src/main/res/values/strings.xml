@@ -46,4 +46,9 @@
     <string name="title_activity_menu_fragment">MenuFragment</string>
     <string name="title_activity_new_menu">NewMenuActivity</string>
 
+    <string name="colorful_text">
+        <![CDATA[ <b><font color=#ff0000>write</b> your <b><font color=#0000ff>text</b> here .]]>
+    </string>
+    <string name="version_no">Version 2.1.0</string>
+
 </resources>
