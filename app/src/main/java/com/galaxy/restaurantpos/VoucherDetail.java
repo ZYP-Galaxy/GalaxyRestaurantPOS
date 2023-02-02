@@ -119,10 +119,12 @@ public class VoucherDetail extends Activity {
         dbhelper = new DatabaseHelper(ctx);//added WHM [2019-08-12]
         chkHideComName = (CheckBox) findViewById(R.id.chkHideComName);
         Button btnSubmit = (Button) findViewById(R.id.butSubmit);
+        Spinner cashierSpinner = (Spinner) findViewById(R.id.cashierPrinters);
         btnSubmit.setVisibility(View.INVISIBLE);
+        cashierSpinner.setVisibility(View.GONE);
         if (dbhelper.Allow_btnPrintBill(dbhelper.getwaiterid()) == true) {
             btnSubmit.setVisibility(View.VISIBLE);
-            ((Spinner) findViewById(R.id.cashierPrinters)).setVisibility(View.VISIBLE);
+            cashierSpinner.setVisibility(View.VISIBLE);
             ((CheckBox) findViewById(R.id.chkBillPrint)).setVisibility(View.VISIBLE);
 
             if (dbhelper.show_billnotprint(dbhelper.getwaiterid()) == true) {         //added by ZYP 05-11-2019
@@ -158,7 +160,6 @@ public class VoucherDetail extends Activity {
 
         // added by TTA on [01-02-2019] for CashierPrinters
         // dbhelper=new DatabaseHelper(ctx);
-        Spinner cashierSpinner = (Spinner) findViewById(R.id.cashierPrinters);
         if (GlobalClass.use_foodtruck) {
             String[] names = findBT();
             if (names.length > 0) {

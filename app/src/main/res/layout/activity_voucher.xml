@@ -932,7 +932,7 @@
                     style="@style/spinner_style"
                     android:background="@drawable/spinnerborder"
                     android:spinnerMode="dropdown"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <Button
                     android:id="@+id/btn_test_printer"
@@ -949,7 +949,7 @@
                     android:id="@+id/chkBillPrint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:text="Bill Not Print"
                     android:textStyle="bold"
                     android:visibility="visible" />
@@ -958,7 +958,7 @@
                     android:id="@+id/chkHideComName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:text="Hide Shop Info:"
                     android:textStyle="bold" />
 
